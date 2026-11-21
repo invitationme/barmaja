@@ -1,0 +1,3468 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أكاديمية الصفر الشاملة — HTML و CSS و Python و POO و Algorithme (0 درهم)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Cairo"', '"Tajawal"', '"Inter"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Cairo', 'Tajawal', system-ui, sans-serif;
+    }
+    code, pre, textarea.code-editor, .mono-font {
+      font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.95); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-pop {
+      animation: popIn 0.22s ease-out forwards;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.45);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(100, 116, 139, 0.7);
+    }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+  <!-- الشريط العلوي: الهوية + المدرب التحفيزي + النقاط + الحفظ التلقائي + الأدوات -->
+  <header class="sticky top-0 z-30 bg-slate-900 text-white border-b border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- شعار الأكاديمية -->
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-400 via-teal-500 to-indigo-600 flex items-center justify-center font-black text-slate-950 text-lg shadow-sm shrink-0">
+          0
+        </div>
+        <div class="min-w-0">
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-sm sm:text-base font-extrabold tracking-tight truncate">أكاديمية الصفر الشاملة</h1>
+            <span class="px-2 py-0.5 text-[11px] font-extrabold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+              0 درهم • مجاني 100%
+            </span>
+          </div>
+          <p class="text-[11px] text-slate-300 truncate">
+            HTML • CSS • Python • POO • Algorithme — من الصفر حتى الاحتراف (عربي / Français / English)
+          </p>
+        </div>
+      </div>
+
+      <!-- أدوات المتابعة والحفظ -->
+      <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+        <!-- المستوى والخبرة XP -->
+        <div class="px-2.5 py-1.5 rounded-xl bg-slate-800 border border-slate-700 flex items-center gap-1.5 text-xs" title="نقاط الخبرة والرتبة">
+          <span>⭐</span>
+          <span id="hud-rank" class="font-bold text-amber-300 hidden sm:inline">مبتدئ طموح</span>
+          <span class="text-slate-600 hidden sm:inline">|</span>
+          <strong id="hud-xp" class="text-emerald-300 font-extrabold">0 XP</strong>
+        </div>
+
+        <!-- السلسلة المتتالية -->
+        <div class="px-2.5 py-1.5 rounded-xl bg-slate-800 border border-slate-700 flex items-center gap-1 text-xs" title="سلسلة النجاحات المتتالية">
+          <span>🔥</span>
+          <strong id="hud-streak" class="text-orange-300 font-extrabold">0</strong>
+        </div>
+
+        <!-- مؤشر الحفظ التلقائي -->
+        <div id="autosave-badge" class="px-2.5 py-1.5 rounded-xl bg-emerald-950/90 border border-emerald-500/40 flex items-center gap-1.5 text-xs text-emerald-200 font-bold" title="يتم حفظ مرحلتك وكودك ونقاطك تلقائياً في المتصفح">
+          <span id="autosave-dot" class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span id="autosave-label">محفوظ تلقائياً</span>
+        </div>
+
+        <!-- قاموس القواعد الشامل -->
+        <button
+          id="btn-open-rules"
+          type="button"
+          class="px-2.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 transition text-xs font-extrabold text-white flex items-center gap-1 shadow-xs"
+          title="تصفح جميع قواعد وصيغ جميع المسارات"
+        >
+          <span>📘</span>
+          <span>قاموس القواعد</span>
+        </button>
+
+        <!-- شارات الإتقان -->
+        <button
+          id="btn-open-badges"
+          type="button"
+          class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 transition text-xs font-bold text-amber-200 flex items-center gap-1"
+          title="شارات الإتقان"
+        >
+          <span>🏅</span>
+          <span id="hud-badges-count">0/6</span>
+        </button>
+
+        <!-- حفظ نسخة JSON -->
+        <button
+          id="btn-export-json"
+          type="button"
+          class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 transition text-xs font-bold text-slate-200 flex items-center gap-1"
+          title="تصدير نسخة احتياطية JSON"
+        >
+          <span>💾</span>
+          <span class="hidden xl:inline">تصدير</span>
+        </button>
+
+        <!-- استعادة نسخة JSON -->
+        <button
+          id="btn-import-json"
+          type="button"
+          class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 transition text-xs font-bold text-slate-200 flex items-center gap-1"
+          title="استعادة نسخة احتياطية JSON"
+        >
+          <span>📂</span>
+          <span class="hidden xl:inline">استيراد</span>
+        </button>
+        <input id="import-json-input" type="file" accept="application/json,.json" class="hidden" />
+
+        <!-- تبديل الوضع الليلي / النهاري -->
+        <button
+          id="btn-toggle-theme"
+          type="button"
+          class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 transition text-xs font-bold"
+          title="تبديل الوضع الليلي والنهاري"
+        >
+          <span id="theme-icon">🌙</span>
+        </button>
+
+        <!-- إعادة ضبط التقدم -->
+        <button
+          id="btn-reset-progress"
+          type="button"
+          class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-rose-950 hover:text-rose-200 border border-slate-700 transition text-xs font-semibold text-slate-300"
+          title="إعادة ضبط التقدم"
+        >
+          ↺
+        </button>
+      </div>
+    </div>
+
+    <!-- شريط المدرب التحفيزي المستمر -->
+    <div class="bg-gradient-to-l from-indigo-950 via-slate-900 to-emerald-950 border-t border-slate-800/90">
+      <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2 flex items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="px-2 py-0.5 rounded-md bg-amber-400/15 text-amber-300 border border-amber-400/30 font-extrabold shrink-0">
+            المدرب التحفيزي
+          </span>
+          <p id="coach-message" class="text-slate-100 font-semibold truncate sm:whitespace-normal">
+            مرحباً بك في رحلتك من الصفر إلى الاحتراف! كل سطر تكتبه اليوم يقربك من هدفك، ابدأ بالخطوة الأولى بثقة! 🚀
+          </p>
+        </div>
+        <button
+          id="btn-next-motivation"
+          type="button"
+          class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-amber-200 font-bold shrink-0 transition"
+          title="كلمة تحفيزية جديدة"
+        >
+          حفّزني ✨
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- بانر استئناف التقدم المحفوظ عند العودة -->
+  <section id="resume-banner" class="hidden max-w-7xl w-full mx-auto px-3 sm:px-6 pt-3">
+    <div class="rounded-2xl p-3.5 sm:p-4 bg-gradient-to-l from-emerald-50 via-teal-50 to-indigo-50 dark:from-emerald-950/70 dark:via-slate-900 dark:to-indigo-950/60 border border-emerald-300 dark:border-emerald-700/80 shadow-xs flex flex-wrap items-center justify-between gap-3 animate-pop">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-lg shrink-0 shadow-xs">
+          📌
+        </div>
+        <div class="min-w-0">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xs sm:text-sm font-black text-emerald-900 dark:text-emerald-200">
+              متابعة من حيث توقفت — تقدمك محفوظ!
+            </span>
+            <span id="resume-difficulty-badge" class="text-[11px] font-extrabold px-2 py-0.5 rounded-full"></span>
+          </div>
+          <p id="resume-details" class="text-xs text-slate-700 dark:text-slate-300 font-semibold mt-0.5"></p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button
+          id="btn-resume-stage"
+          type="button"
+          class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold transition shadow-xs"
+        >
+          متابعة المرحلة المحفوظة ←
+        </button>
+        <button
+          id="btn-hide-resume"
+          type="button"
+          class="px-3 py-2 rounded-xl bg-white/80 dark:bg-slate-800 hover:bg-white dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 transition"
+        >
+          إخفاء
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- اختيار المسارات الخمسة والتقدم الإجمالي -->
+  <section class="max-w-7xl w-full mx-auto px-3 sm:px-6 pt-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl p-3.5 sm:p-4 border border-slate-200 dark:border-slate-800 shadow-xs">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 mb-3">
+        <div>
+          <h2 class="text-xs sm:text-sm font-extrabold text-slate-500 dark:text-slate-400">
+            اختر المسار البرمجي (7 مراحل في كل مسار من السهل إلى الصعب — المجموع 35 مرحلة):
+          </h2>
+        </div>
+        <div class="flex items-center gap-3 min-w-[230px]">
+          <span class="text-xs font-bold text-slate-600 dark:text-slate-300 whitespace-nowrap">
+            الإنجاز الكلي: <strong id="global-progress-text" class="text-emerald-600 dark:text-emerald-400">0 / 35</strong>
+          </span>
+          <div class="flex-1 h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <div id="global-progress-bar" class="h-full bg-gradient-to-r from-emerald-500 to-indigo-500 transition-all duration-300 w-0"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- أزرار المسارات الخمسة -->
+      <div id="track-tabs" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+        <!-- يتم تعبئتها ديناميكياً -->
+      </div>
+    </div>
+  </section>
+
+  <!-- المحتوى الرئيسي: شريط المراحل على اليمين + الدرس والمحرر والتنفيذ على اليسار -->
+  <main class="max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
+
+    <!-- قائمة المراحل السبع للمسار الحالي -->
+    <aside class="lg:col-span-4 bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs">
+      <div class="flex items-center justify-between gap-2 pb-3 mb-3 border-b border-slate-200 dark:border-slate-800">
+        <div class="flex items-center gap-2 min-w-0">
+          <span id="track-header-icon" class="text-2xl">🌐</span>
+          <div class="min-w-0">
+            <h3 id="track-header-title" class="text-base font-black truncate">HTML</h3>
+            <p id="track-header-sub" class="text-[11px] text-slate-500 dark:text-slate-400 truncate"></p>
+          </div>
+        </div>
+        <span id="track-completion-badge" class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 shrink-0">
+          0 / 7
+        </span>
+      </div>
+
+      <div id="levels-list" class="space-y-2">
+        <!-- المراحل السبع -->
+      </div>
+
+      <!-- بطاقة نصيحة الصعوبة في الأسفل -->
+      <div class="mt-4 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/70 text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+        <strong class="text-slate-800 dark:text-slate-100">تدرج المستويات:</strong>
+        تبدأ المراحل الأولى بمستوى <span class="font-bold text-emerald-600 dark:text-emerald-400">سهل</span> لتأسيس الفهم من الصفر، ثم <span class="font-bold text-amber-600 dark:text-amber-400">متوسط</span> لتعميق الممارسة، وتصل إلى <span class="font-bold text-rose-600 dark:text-rose-400">صعب</span> لتحديات متقدمة.
+      </div>
+    </aside>
+
+    <!-- منطقة الشرح والقواعد والمحرر والتنفيذ -->
+    <section class="lg:col-span-8 space-y-4">
+
+      <!-- بطاقة الشرح + الصيغة القياسية + المصطلحات الثلاثية -->
+      <article class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-2">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-1.5">
+              <span id="stage-number-pill" class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-indigo-100 text-indigo-800 dark:bg-indigo-950 dark:text-indigo-200">
+                المرحلة 1 من 7
+              </span>
+              <span id="stage-difficulty-badge" class="px-2.5 py-0.5 rounded-full text-xs font-extrabold">
+                سهل
+              </span>
+              <span id="stage-xp-badge" class="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-200">
+                +100 XP
+              </span>
+              <span id="stage-completed-pill" class="hidden px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200">
+                ✓ مكتملة
+              </span>
+            </div>
+            <h2 id="stage-title" class="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
+              عنوان المرحلة
+            </h2>
+          </div>
+        </div>
+
+        <!-- مصطلحات المرحلة بالعربية والفرنسية والإنجليزية -->
+        <div class="bg-slate-50 dark:bg-slate-800/70 rounded-xl p-3 border border-slate-200 dark:border-slate-700">
+          <div class="text-[11px] font-extrabold text-slate-500 dark:text-slate-400 mb-2">
+            المصطلحات الأساسية للمرحلة (العربية / Français / English):
+          </div>
+          <div id="stage-terms" class="flex flex-wrap gap-2">
+            <!-- شرائح المصطلحات -->
+          </div>
+        </div>
+
+        <!-- شرح الدرس من الصفر -->
+        <div id="stage-explanation" class="text-sm leading-7 text-slate-700 dark:text-slate-200 space-y-2">
+          <!-- الشرح -->
+        </div>
+
+        <!-- القواعد الأساسية وصيغة الكتابة (Syntax) -->
+        <div class="rounded-xl bg-slate-900 text-slate-100 p-3.5 border border-slate-700">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span class="text-xs font-extrabold text-emerald-300">
+              📌 القاعدة والصيغة القياسية (Syntax & Rules)
+            </span>
+            <span class="text-[11px] text-slate-400">اقرأها بعناية قبل التطبيق</span>
+          </div>
+          <pre id="stage-syntax" class="text-xs leading-6 text-cyan-200 overflow-x-auto whitespace-pre-wrap"></pre>
+        </div>
+
+        <!-- مهمة التحدي المطلوبة -->
+        <div class="rounded-xl bg-amber-50 dark:bg-amber-950/35 border border-amber-300 dark:border-amber-700/70 p-3.5">
+          <div class="flex items-center gap-2 text-xs sm:text-sm font-black text-amber-900 dark:text-amber-200 mb-1">
+            <span>🎯</span>
+            <span>التحدي العملي المطلوب في هذه المرحلة:</span>
+          </div>
+          <p id="stage-mission" class="text-xs sm:text-sm font-semibold text-amber-950 dark:text-amber-100 leading-6"></p>
+        </div>
+      </article>
+
+      <!-- محرر الأكواد التفاعلي وأزرار التحكم -->
+      <article class="bg-white dark:bg-slate-900 rounded-2xl p-4 sm:p-5 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-black">💻 محرر الأكواد التفاعلي</span>
+            <span id="editor-lang-tag" class="px-2 py-0.5 rounded-md text-[11px] font-extrabold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+              HTML
+            </span>
+            <span class="text-[11px] text-emerald-600 dark:text-emerald-400 font-bold hidden sm:inline">
+              • يُحفظ تلقائياً أثناء الكتابة
+            </span>
+          </div>
+
+          <!-- أزرار المساعدة والحل النموذجي والتشغيل -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button
+              id="btn-hint"
+              type="button"
+              class="px-3 py-1.5 rounded-xl bg-amber-100 hover:bg-amber-200 dark:bg-amber-900/50 dark:hover:bg-amber-900 text-amber-900 dark:text-amber-200 text-xs font-extrabold transition"
+            >
+              💡 تلميح
+            </button>
+            <button
+              id="btn-reset-code"
+              type="button"
+              class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition"
+            >
+              ↺ إعادة الكود الأصلي
+            </button>
+            <button
+              id="btn-solution"
+              type="button"
+              class="px-3 py-1.5 rounded-xl bg-indigo-100 hover:bg-indigo-200 dark:bg-indigo-950 dark:hover:bg-indigo-900 text-indigo-900 dark:text-indigo-200 text-xs font-extrabold transition"
+            >
+              👁️ الحل النموذجي
+            </button>
+            <button
+              id="btn-run-check"
+              type="button"
+              class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black transition shadow-xs"
+            >
+              ▶ تشغيل وتحقق
+            </button>
+          </div>
+        </div>
+
+        <!-- صندوق التلميح -->
+        <div id="hint-box" class="hidden rounded-xl p-3 bg-amber-50 dark:bg-amber-950/50 border border-amber-300 dark:border-amber-700 text-xs font-bold text-amber-950 dark:text-amber-200 animate-pop"></div>
+
+        <!-- صندوق الحل النموذجي -->
+        <div id="solution-box" class="hidden rounded-xl p-3 bg-indigo-950 text-indigo-100 border border-indigo-700 space-y-2 animate-pop">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-extrabold text-indigo-300">✅ الحل النموذجي المقترح:</span>
+            <button id="btn-apply-solution" type="button" class="px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px]">
+              نسخ الحل إلى المحرر
+            </button>
+          </div>
+          <pre id="solution-code-preview" class="text-xs leading-6 text-emerald-200 overflow-x-auto whitespace-pre-wrap"></pre>
+        </div>
+
+        <!-- مساحة كتابة الكود -->
+        <textarea
+          id="code-editor"
+          dir="ltr"
+          rows="11"
+          spellcheck="false"
+          class="code-editor w-full rounded-xl p-3.5 bg-slate-950 text-emerald-200 border border-slate-700 focus:border-emerald-400 focus:outline-none text-xs sm:text-sm leading-6 resize-y"
+          placeholder="اكتب الكود هنا..."
+        ></textarea>
+
+        <!-- نتيجة التنفيذ والتحقق -->
+        <div id="feedback-box" class="hidden rounded-xl p-3.5 border text-xs sm:text-sm font-bold leading-6 animate-pop"></div>
+
+        <!-- مخرجات التشغيل (Console / Output) -->
+        <div class="rounded-xl bg-slate-950 border border-slate-800 overflow-hidden">
+          <div class="px-3.5 py-2 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs text-slate-300 font-bold">
+            <span>🖥️ مخرجات التنفيذ (Output / Console)</span>
+            <span id="execution-status" class="text-[11px] text-slate-400">جاهز للتشغيل</span>
+          </div>
+          <pre id="console-output" dir="ltr" class="p-3.5 text-xs leading-6 text-slate-200 min-h-[76px] max-h-60 overflow-y-auto whitespace-pre-wrap">// اضغط على "تشغيل وتحقق" لتنفيذ الكود ومشاهدة النتيجة والتحقق من التحدي.</pre>
+        </div>
+
+        <!-- معاينة حية لصفحات HTML و CSS -->
+        <div id="live-preview-wrapper" class="hidden rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white">
+          <div class="px-3.5 py-2 bg-slate-100 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-200">
+            <span>🌐 المعاينة الحية للنتيجة (Live Preview)</span>
+            <span class="text-[11px] text-slate-500 dark:text-slate-400">تحديث فوري عند التشغيل</span>
+          </div>
+          <iframe id="live-preview-frame" title="المعاينة الحية" class="w-full h-56 bg-white border-0"></iframe>
+        </div>
+
+        <!-- أزرار التنقل بين المراحل -->
+        <div class="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-200 dark:border-slate-800">
+          <button
+            id="btn-prev-stage"
+            type="button"
+            class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-extrabold transition disabled:opacity-40"
+          >
+            ← المرحلة السابقة
+          </button>
+          <button
+            id="btn-next-stage"
+            type="button"
+            class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black transition disabled:opacity-40"
+          >
+            المرحلة التالية →
+          </button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- نافذة قاموس القواعد الشامل (Complete Rules & Syntax Dictionary) -->
+  <div id="rules-modal" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-5xl w-full max-h-[88vh] flex flex-col border border-slate-200 dark:border-slate-700 shadow-2xl animate-pop overflow-hidden">
+      <!-- رأس القاموس -->
+      <div class="p-4 sm:p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
+        <div>
+          <h3 class="text-lg sm:text-xl font-black">📘 قاموس القواعد والصيغ الشامل (Rules & Syntax Reference)</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            جميع قواعد وصيغ HTML و CSS و Python و POO و Algorithme منظمة مع المصطلحات الثلاثية ومستوى الصعوبة
+          </p>
+        </div>
+        <button
+          id="btn-close-rules"
+          type="button"
+          class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-rose-100 dark:bg-slate-800 dark:hover:bg-rose-950 text-slate-700 dark:text-slate-200 hover:text-rose-700 font-black flex items-center justify-center transition"
+          aria-label="إغلاق قاموس القواعد"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- فلاتر البحث والمسار والصعوبة -->
+      <div class="p-4 bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+        <input
+          id="rules-search-input"
+          type="text"
+          placeholder="ابحث عن قاعدة أو وسم أو كلمة مفتاحية..."
+          class="rounded-xl px-3.5 py-2 text-xs sm:text-sm bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-indigo-500"
+        />
+        <select
+          id="rules-track-filter"
+          class="rounded-xl px-3 py-2 text-xs sm:text-sm bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-indigo-500 font-bold"
+        >
+          <option value="all">كل المسارات (5 مسارات)</option>
+          <option value="html">HTML</option>
+          <option value="css">CSS</option>
+          <option value="python">Python</option>
+          <option value="poo">POO (البرمجة الكائنية)</option>
+          <option value="algo">Algorithme (الخوارزميات)</option>
+        </select>
+        <select
+          id="rules-difficulty-filter"
+          class="rounded-xl px-3 py-2 text-xs sm:text-sm bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 focus:outline-none focus:border-indigo-500 font-bold"
+        >
+          <option value="all">كل المستويات (سهل / متوسط / صعب)</option>
+          <option value="easy">سهل (Easy / Facile)</option>
+          <option value="medium">متوسط (Medium / Moyen)</option>
+          <option value="hard">صعب (Hard / Difficile)</option>
+        </select>
+      </div>
+
+      <!-- قائمة القواعد المفلترة -->
+      <div id="rules-list-container" class="p-4 sm:p-5 overflow-y-auto space-y-3 flex-1">
+        <!-- يتم تعبئتها ديناميكياً -->
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة شارات الإتقان -->
+  <div id="badges-modal" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full p-5 sm:p-6 border border-slate-200 dark:border-slate-700 shadow-2xl animate-pop">
+      <div class="flex items-center justify-between gap-2 pb-3 border-b border-slate-200 dark:border-slate-800">
+        <h3 class="text-lg font-black">🏅 شارات الإتقان والتحفيز</h3>
+        <button id="btn-close-badges" type="button" class="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 font-black">✕</button>
+      </div>
+      <div id="badges-grid" class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[65vh] overflow-y-auto">
+        <!-- الشارات -->
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة تأكيد إعادة ضبط التقدم (بدون confirm) -->
+  <div id="reset-modal" class="hidden fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-5 sm:p-6 border border-rose-200 dark:border-rose-800 shadow-2xl animate-pop">
+      <div class="flex items-center gap-2 text-rose-600 dark:text-rose-400">
+        <span class="text-2xl">⚠️</span>
+        <h3 class="text-lg font-black">إعادة ضبط التقدم بالكامل؟</h3>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2.5 leading-relaxed">
+        سيتم تصفير جميع المراحل المكتملة ونقاط XP والسلسلة والمسودات المحفوظة والعودة إلى بداية المسار. يُنصح بتصدير نسخة JSON أولاً إذا أردت الاحتفاظ بها.
+      </p>
+      <div class="mt-5 flex items-center justify-end gap-2">
+        <button id="btn-cancel-reset" type="button" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-extrabold">
+          إلغاء
+        </button>
+        <button id="btn-confirm-reset" type="button" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold">
+          تأكيد التصفير
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- إشعار منبثق لطيف (بدون alert) -->
+  <div id="toast-banner" class="hidden fixed bottom-4 left-4 z-50 max-w-sm rounded-2xl px-4 py-3 bg-slate-900 text-white border border-slate-700 shadow-xl flex items-center gap-2.5 text-xs font-bold animate-pop">
+    <span id="toast-icon">ℹ️</span>
+    <span id="toast-text" class="flex-1"></span>
+    <button id="btn-close-toast" type="button" class="text-slate-400 hover:text-white font-black">✕</button>
+  </div>
+
+  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-3.5 px-4 text-center text-xs text-slate-500 dark:text-slate-400">
+    أكاديمية الصفر الشاملة (0 درهم) — تعلم HTML و CSS و Python و POO و Algorithme بخطوات متدرجة ومصطلحات ثلاثية مع حفظ تلقائي للتقدم.
+  </footer>
+
+  <script>
+    // =========================================================================
+    // 1. المنهج الكامل: 5 مسارات × 7 مراحل = 35 مرحلة (سهل -> متوسط -> صعب)
+    // =========================================================================
+    const DIFFICULTY_META = {
+      easy: {
+        label: 'سهل',
+        classes: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200 border border-emerald-300/60 dark:border-emerald-700/60'
+      },
+      medium: {
+        label: 'متوسط',
+        classes: 'bg-amber-100 text-amber-900 dark:bg-amber-950 dark:text-amber-200 border border-amber-300/60 dark:border-amber-700/60'
+      },
+      hard: {
+        label: 'صعب',
+        classes: 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-200 border border-rose-300/60 dark:border-rose-700/60'
+      }
+    };
+
+    const CURRICULUM = [
+      // -------------------------- مسار 1: HTML --------------------------
+      {
+        id: 'html',
+        name: 'HTML',
+        subtitle: 'هيكل صفحات الويب والوسوم',
+        icon: '🌐',
+        editorLang: 'HTML5',
+        accent: 'from-orange-500 to-amber-500',
+        levels: [
+          {
+            id: 'html-1',
+            levelNumber: 1,
+            title: 'الهيكل والوسوم الأساسية',
+            difficulty: 'easy',
+            xp: 80,
+            terms: [
+              { ar: 'وسم / عنصر', fr: 'Balise / Élément', en: 'Tag / Element' },
+              { ar: 'عنوان رئيسي', fr: 'Titre principal', en: 'Main Heading (h1)' },
+              { ar: 'فقرة نصية', fr: 'Paragraphe', en: 'Paragraph (p)' }
+            ],
+            explanation: [
+              'لغة HTML ليست لغة برمجة منطقية، بل هي لغة توصيف (Markup Language) تحدد هيكل ومحتوى صفحة الويب.',
+              'معظم عناصر HTML تتكون من وسم فتح مثل <h1> ووسم إغلاق مثل </h1> وبينهما المحتوى.'
+            ],
+            syntax: `<h1>عنوان رئيسي</h1>
+<p>نص الفقرة الأولى في الصفحة.</p>`,
+            mission: 'اكتب عنواناً رئيسياً داخل <h1> يحتوي على كلمة "مرحبا" وفقرة داخل <p> تحتوي على كلمة "برمجة".',
+            hint: 'استخدم <h1>...</h1> للعنوان و <p>...</p> للفقرة، وتأكد من إغلاق الوسمين بشكل صحيح.',
+            starterCode: `<!-- اكتب كود HTML هنا -->
+<h1></h1>
+<p></p>`,
+            solutionCode: `<h1>مرحبا بك في عالم الويب</h1>
+<p>أتعلم برمجة المواقع من الصفر.</p>`,
+            validate: (code) => {
+              const hasH1 = /<h1[^>]*>.*?مرحبا.*?<\/h1>/is.test(code);
+              const hasP = /<p[^>]*>.*?برمجة.*?<\/p>/is.test(code);
+              if (!hasH1) return { ok: false, message: 'تأكد من وجود وسم <h1> يحتوي على كلمة "مرحبا".' };
+              if (!hasP) return { ok: false, message: 'تأكد من وجود وسم <p> يحتوي على كلمة "برمجة".' };
+              return { ok: true, message: 'ممتاز! بنيت أول هيكل أساسي في HTML بنجاح!' };
+            }
+          },
+          {
+            id: 'html-2',
+            levelNumber: 2,
+            title: 'النصوص والقوائم والروابط',
+            difficulty: 'easy',
+            xp: 90,
+            terms: [
+              { ar: 'قائمة غير مرتبة', fr: 'Liste non ordonnée', en: 'Unordered List (ul)' },
+              { ar: 'عنصر قائمة', fr: 'Élément de liste', en: 'List Item (li)' },
+              { ar: 'رابط تشعبي', fr: 'Lien hypertexte', en: 'Hyperlink (a / href)' }
+            ],
+            explanation: [
+              'لعرض قائمة نقاط نستخدم <ul> وبداخلها عدة عناصر <li>.',
+              'لإنشاء رابط ينتقل إلى صفحة أو موقع نستخدم الوسم <a href="الرابط">النص</a>.'
+            ],
+            syntax: `<ul>
+  <li>العنصر الأول</li>
+  <li>العنصر الثاني</li>
+</ul>
+<a href="https://example.com">زيارة الموقع</a>`,
+            mission: 'أنشئ قائمة <ul> تحتوي على عنصرين <li> على الأقل، ورابطاً <a href="..."> يحتوي على خاصية href.',
+            hint: 'ضع وسمي <li> داخل <ul>، واستخدم <a href="https://...">نص الرابط</a>.',
+            starterCode: `<ul>
+  <li></li>
+</ul>
+<a href=""></a>`,
+            solutionCode: `<ul>
+  <li>HTML</li>
+  <li>CSS</li>
+</ul>
+<a href="https://example.com">ابدأ التعلم</a>`,
+            validate: (code) => {
+              const liMatches = code.match(/<li[^>]*>.*?<\/li>/gis) || [];
+              const hasUl = /<ul[^>]*>[\s\S]*<\/ul>/i.test(code);
+              const hasLink = /<a\b[^>]*href\s*=\s*["'][^"']+["'][^>]*>.*?<\/a>/is.test(code);
+              if (!hasUl || liMatches.length < 2) return { ok: false, message: 'أضف قائمة <ul> تحتوي على عنصرين <li> على الأقل.' };
+              if (!hasLink) return { ok: false, message: 'أضف رابطاً <a href="..."> يحتوي على رابط غير فارغ ونص.' };
+              return { ok: true, message: 'رائع! أتقنت القوائم والروابط في HTML.' };
+            }
+          },
+          {
+            id: 'html-3',
+            levelNumber: 3,
+            title: 'الجداول والنماذج Forms',
+            difficulty: 'medium',
+            xp: 110,
+            terms: [
+              { ar: 'نموذج إدخال', fr: 'Formulaire', en: 'Form (<form>)' },
+              { ar: 'حقل إدخال', fr: 'Champ de saisie', en: 'Input (<input>)' },
+              { ar: 'جدول بيانات', fr: 'Tableau', en: 'Table (<table>, <tr>, <td>)' }
+            ],
+            explanation: [
+              'تُستخدم النماذج <form> لجمع بيانات المستخدم مثل الاسم والبريد الإلكتروني عبر <input> وزر إرسال <button>.',
+              'تُبنى الجداول عبر <table>، وصفوف <tr>، وخلايا <td> أو عناوين أعمدة <th>.'
+            ],
+            syntax: `<form>
+  <label for="nom">الاسم:</label>
+  <input id="nom" type="text" />
+  <button type="submit">إرسال</button>
+</form>`,
+            mission: 'أنشئ نموذجاً <form> يحتوي على حقل <input> وزر <button>، مع جدول <table> بسيط.',
+            hint: 'تأكد من وجود <form> بداخله <input> و <button>، بالإضافة إلى <table>.',
+            starterCode: `<form>
+  <input type="text" placeholder="اكتب اسمك" />
+  <button type="submit">إرسال</button>
+</form>
+<table>
+  <tr><td>المادة</td><td>الدرجة</td></tr>
+</table>`,
+            solutionCode: `<form>
+  <label for="student">اسم الطالب:</label>
+  <input id="student" type="text" placeholder="أدخل الاسم" />
+  <button type="submit">إرسال</button>
+</form>
+<table>
+  <tr><th>المادة</th><th>الدرجة</th></tr>
+  <tr><td>Python</td><td>18/20</td></tr>
+</table>`,
+            validate: (code) => {
+              const hasForm = /<form\b[^>]*>[\s\S]*<\/form>/i.test(code);
+              const hasInput = /<input\b[^>]*>/i.test(code);
+              const hasBtn = /<button\b[^>]*>[\s\S]*<\/button>/i.test(code);
+              const hasTable = /<table\b[^>]*>[\s\S]*<\/table>/i.test(code);
+              if (!hasForm || !hasInput || !hasBtn) return { ok: false, message: 'تأكد من وجود <form> بداخله <input> و <button>.' };
+              if (!hasTable) return { ok: false, message: 'أضف جدولاً <table> لإنهاء التحدي.' };
+              return { ok: true, message: 'عمل رائع! جمعت بين النماذج والجداول باحتراف.' };
+            }
+          },
+          {
+            id: 'html-4',
+            levelNumber: 4,
+            title: 'الوسائط والوسوم الدلالية Semantic',
+            difficulty: 'medium',
+            xp: 120,
+            terms: [
+              { ar: 'وسوم دلالية', fr: 'Balises sémantiques', en: 'Semantic Tags' },
+              { ar: 'الترويسة / المحتوى الرئيسي', fr: 'En-tête / Contenu principal', en: 'Header / Main / Footer' },
+              { ar: 'صورة مع بديل نصي', fr: 'Image avec texte alternatif', en: 'Image (img + alt)' }
+            ],
+            explanation: [
+              'الوسوم الدلالية مثل <header> و <main> و <article> و <footer> توضح معنى كل جزء للمتصفح ومحركات البحث.',
+              'الخاصية alt في الصورة مهمة لوصف الصورة عندما لا تظهر أو لقارئ الشاشة.'
+            ],
+            syntax: `<header><h1>موقعي</h1></header>
+<main>
+  <article>مقال تقني</article>
+  <img src="logo.png" alt="شعار الموقع" />
+</main>
+<footer>جميع الحقوق محفوظة</footer>`,
+            mission: 'استخدم الوسوم الدلالية <header> و <main> و <footer> وأضف صورة <img> تحتوي على خاصية alt غير فارغة.',
+            hint: 'تأكد من وجود <header> و <main> و <footer> و <img src="..." alt="...">.' ,
+            starterCode: `<header>
+  <h2>مدونة التقنية</h2>
+</header>
+<main>
+  <img src="tech.jpg" alt="" />
+</main>
+<footer></footer>`,
+            solutionCode: `<header>
+  <h2>مدونة التقنية</h2>
+</header>
+<main>
+  <p>مقالات حول تطوير الويب والبرمجة.</p>
+  <img src="tech.jpg" alt="صورة توضيحية للبرمجة" />
+</main>
+<footer>حقوق النشر محفوظة</footer>`,
+            validate: (code) => {
+              const hasSemantic = /<header\b/i.test(code) && /<main\b/i.test(code) && /<footer\b/i.test(code);
+              const hasAlt = /<img\b[^>]*alt\s*=\s*["'][^"']+["'][^>]*>/i.test(code);
+              if (!hasSemantic) return { ok: false, message: 'استخدم الوسوم الدلالية الثلاثة: <header> و <main> و <footer>.' };
+              if (!hasAlt) return { ok: false, message: 'أضف وسم <img> مع خاصية alt تحتوي على وصف واضح.' };
+              return { ok: true, message: 'ممتاز! كودك الآن دلالي ومنظم وفق معايير الويب الحديثة.' };
+            }
+          },
+          {
+            id: 'html-5',
+            levelNumber: 5,
+            title: 'المدخلات المتقدمة والتحقق',
+            difficulty: 'medium',
+            xp: 130,
+            terms: [
+              { ar: 'التحقق من المدخلات', fr: 'Validation de formulaire', en: 'Form Validation (required)' },
+              { ar: 'حقل بريد إلكتروني', fr: 'Champ e-mail', en: 'Email & Number Inputs' },
+              { ar: 'قائمة منسدلة', fr: 'Liste déroulante', en: 'Select & Option' }
+            ],
+            explanation: [
+              'يدعم HTML5 أنواع مدخلات مخصصة مثل type="email" و type="number" وسمة required لمنع الإرسال الفارغ.',
+              'عنصر <select> مع <option> يتيح اختيار قيمة محددة من قائمة منسدلة.'
+            ],
+            syntax: `<input type="email" required placeholder="name@example.com" />
+<select name="level">
+  <option value="beginner">مبتدئ</option>
+  <option value="pro">متقدم</option>
+</select>`,
+            mission: 'أنشئ حقل <input type="email" required> وقائمة <select> تحتوي على خيارين <option> على الأقل.',
+            hint: 'تأكد من كتابة type="email" و required في حقل الإدخال، ووجود <select> بداخله <option>.',
+            starterCode: `<form>
+  <input type="email" />
+  <select>
+    <option value="html">HTML</option>
+  </select>
+</form>`,
+            solutionCode: `<form>
+  <input type="email" required placeholder="example@mail.com" />
+  <select name="track">
+    <option value="html">HTML</option>
+    <option value="python">Python</option>
+  </select>
+  <button type="submit">تسجيل</button>
+</form>`,
+            validate: (code) => {
+              const hasEmailReq = /<input\b[^>]*type\s*=\s*["']email["'][^>]*required/i.test(code) || /<input\b[^>]*required[^>]*type\s*=\s*["']email["']/i.test(code);
+              const options = code.match(/<option\b[^>]*>.*?<\/option>/gis) || [];
+              const hasSelect = /<select\b[^>]*>[\s\S]*<\/select>/i.test(code);
+              if (!hasEmailReq) return { ok: false, message: 'أضف <input type="email" required> لضمان إدخال بريد إلكتروني إجباري.' };
+              if (!hasSelect || options.length < 2) return { ok: false, message: 'أضف عنصر <select> يحتوي على خيارين <option> على الأقل.' };
+              return { ok: true, message: 'رائع! أتقنت التحقق المباشر والقوائم المنسدلة في HTML5.' };
+            }
+          },
+          {
+            id: 'html-6',
+            levelNumber: 6,
+            title: 'الوصولية والبيانات الوصفية المتقدمة',
+            difficulty: 'hard',
+            xp: 160,
+            terms: [
+              { ar: 'إمكانية الوصول', fr: 'Accessibilité web', en: 'Accessibility (ARIA / label)' },
+              { ar: 'بيانات وصفية', fr: 'Métadonnées', en: 'Metadata (meta description)' },
+              { ar: 'تسمية وصولية', fr: 'Libellé accessible', en: 'aria-label' }
+            ],
+            explanation: [
+              'إمكانية الوصول (Accessibility) تجعل الموقع قابلاً للاستخدام من طرف الجميع بمن فيهم ذوو الإعاقة البصرية.',
+              'تُستخدم سمات مثل aria-label وربط <label for="..."> بدقة، كما توفر وسوم <meta name="description" content="..."> وصفاً للمحتوى.'
+            ],
+            syntax: `<meta name="description" content="منصة تعليمية مجانية" />
+<button type="button" aria-label="إغلاق النافذة">✕</button>`,
+            mission: 'أضف وسم <meta name="description" content="..."> وزر <button> مزوداً بـ aria-label واضح.',
+            hint: 'تأكد من وجود <meta name="description" content="...غير فارغ..."> و aria-label="..." داخل زر.',
+            starterCode: `<meta name="description" content="" />
+<button type="button" aria-label="">بحث</button>`,
+            solutionCode: `<meta name="description" content="أكاديمية تعلم البرمجة من الصفر مجاناً" />
+<button type="button" aria-label="تنفيذ البحث الآن">بحث</button>`,
+            validate: (code) => {
+              const hasMetaDesc = /<meta\b[^>]*name\s*=\s*["']description["'][^>]*content\s*=\s*["'][^"']{4,}["'][^>]*>/i.test(code);
+              const hasAria = /aria-label\s*=\s*["'][^"']{2,}["']/i.test(code);
+              if (!hasMetaDesc) return { ok: false, message: 'أضف وسم <meta name="description" content="..."> بمحتوى وصفي واضح.' };
+              if (!hasAria) return { ok: false, message: 'أضف سمة aria-label تحتوي على وصف واضح.' };
+              return { ok: true, message: 'ممتاز! طبّقت مفاهيم الوصولية والبيانات الوصفية المتقدمة.' };
+            }
+          },
+          {
+            id: 'html-7',
+            levelNumber: 7,
+            title: 'بناء صفحة متكاملة ومنظمة',
+            difficulty: 'hard',
+            xp: 200,
+            terms: [
+              { ar: 'صفحة متكاملة', fr: 'Page structurée complète', en: 'Complete Structured Page' },
+              { ar: 'قسم / مقالة', fr: 'Section / Article', en: 'Section & Article' },
+              { ar: 'تنظيم هرمي', fr: 'Hiérarchie sémantique', en: 'Semantic Hierarchy' }
+            ],
+            explanation: [
+              'في المشاريع الحقيقية نجمع بين الهيكل الدلالي (<header>, <main>, <section>, <footer>) والعناوين والفقرات والروابط والنماذج في صفحة متماسكة.',
+              'التنظيم الجيد يسهّل قراءة الكود وصيانته وتطويره لاحقاً.'
+            ],
+            syntax: `<header><h1>مشروعي</h1></header>
+<main>
+  <section><h2>المميزات</h2><p>شرح</p></section>
+</main>
+<footer>تواصل معنا</footer>`,
+            mission: 'ابنِ صفحة منظمة تحتوي على <header> و <main> و <section> وعنوان <h1> وفقرة <p> ورابط <a> و <footer>.',
+            hint: 'اجمع بين <header> و <main> و <section> و <h1> و <p> و <a href="..."> و <footer>.',
+            starterCode: `<header>
+  <h1>منصة التعلم</h1>
+</header>
+<main>
+  <section>
+    <p>ابدأ رحلتك اليوم.</p>
+    <a href="#start">ابدأ الآن</a>
+  </section>
+</main>
+<footer></footer>`,
+            solutionCode: `<header>
+  <h1>منصة التعلم الذكي</h1>
+</header>
+<main>
+  <section>
+    <h2>لماذا نتعلم البرمجة؟</h2>
+    <p>لابتكار حلول رقمية وتطوير مشاريع حقيقية.</p>
+    <a href="#courses">استكشف الدورات</a>
+  </section>
+</main>
+<footer>جميع الحقوق محفوظة © 2026</footer>`,
+            validate: (code) => {
+              const ok = /<header\b/i.test(code) && /<main\b/i.test(code) && /<section\b/i.test(code) &&
+                /<h1\b[^>]*>.*?<\/h1>/is.test(code) && /<p\b[^>]*>.*?<\/p>/is.test(code) &&
+                /<a\b[^>]*href\s*=\s*["'][^"']+["']/i.test(code) && /<footer\b/i.test(code);
+              if (!ok) {
+                return { ok: false, message: 'تأكد من تضمين <header> و <main> و <section> و <h1> و <p> و <a href="..."> و <footer>.' };
+              }
+              return { ok: true, message: 'أسطوري! أتممت جميع مراحل مسار HTML بنجاح باهر!' };
+            }
+          }
+        ]
+      },
+
+      // -------------------------- مسار 2: CSS --------------------------
+      {
+        id: 'css',
+        name: 'CSS',
+        subtitle: 'التنسيق والألوان والتخطيط والاستجابة',
+        icon: '🎨',
+        editorLang: 'HTML + CSS',
+        accent: 'from-sky-500 to-indigo-600',
+        levels: [
+          {
+            id: 'css-1',
+            levelNumber: 1,
+            title: 'الألوان والخطوط والوحدات',
+            difficulty: 'easy',
+            xp: 80,
+            terms: [
+              { ar: 'محدد / خاصية / قيمة', fr: 'Sélecteur / Propriété / Valeur', en: 'Selector / Property / Value' },
+              { ar: 'لون النص / الخلفية', fr: 'Couleur texte / Fond', en: 'color / background-color' },
+              { ar: 'حجم الخط', fr: 'Taille de police', en: 'font-size (px / rem)' }
+            ],
+            explanation: [
+              'تتحكم CSS في المظهر البصري للعناصر: الألوان، الخطوط، المسافات، والتخطيط.',
+              'تُكتب القاعدة بصيغة: محدد { خاصية: قيمة; } ولا تنسَ الفاصلة المنقوطة ; .'
+            ],
+            syntax: `<style>
+  h1 {
+    color: #0f172a;
+    font-size: 28px;
+  }
+</style>`,
+            mission: 'نسّق العنصر h1 داخل <style> بتغيير لونه (color) وحجم خطه (font-size).',
+            hint: 'اكتب داخل <style> محدد h1 وخصص color و font-size.',
+            starterCode: `<style>
+  h1 {
+    /* أضف color و font-size */
+  }
+</style>
+<h1>أهلاً بـ CSS</h1>`,
+            solutionCode: `<style>
+  h1 {
+    color: #1d4ed8;
+    font-size: 30px;
+  }
+</style>
+<h1>أهلاً بـ CSS</h1>`,
+            validate: (code) => {
+              const hasColor = /h1\s*\{[^}]*\bcolor\s*:/i.test(code);
+              const hasSize = /h1\s*\{[^}]*\bfont-size\s*:/i.test(code);
+              if (!hasColor || !hasSize) return { ok: false, message: 'حدد خاصيتي color و font-size داخل قاعدة h1.' };
+              return { ok: true, message: 'ممتاز! تحكمت بالألوان وحجم الخط في CSS.' };
+            }
+          },
+          {
+            id: 'css-2',
+            levelNumber: 2,
+            title: 'صندوق العناصر Box Model',
+            difficulty: 'easy',
+            xp: 90,
+            terms: [
+              { ar: 'نموذج الصندوق', fr: 'Modèle de boîte', en: 'Box Model' },
+              { ar: 'حشو داخلي', fr: 'Marge intérieure', en: 'padding' },
+              { ar: 'هامش خارجي / إطار', fr: 'Marge extérieure / Bordure', en: 'margin / border' }
+            ],
+            explanation: [
+              'كل عنصر في CSS يُعامل كصندوق يتكون من: المحتوى (Content)، الحشو الداخلي (padding)، الإطار (border)، والهامش الخارجي (margin).',
+              'استخدام box-sizing: border-box يجعل حساب الأبعاد أدق وأسهل.'
+            ],
+            syntax: `.card {
+  padding: 16px;
+  margin: 12px;
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+}`,
+            mission: 'نسّق الصنف .card بإضافة padding و border و border-radius.',
+            hint: 'أضف padding و border و border-radius داخل .card { ... }.',
+            starterCode: `<style>
+  .card {
+    background: #f8fafc;
+  }
+</style>
+<div class="card">بطاقة تعلم</div>`,
+            solutionCode: `<style>
+  .card {
+    background: #f8fafc;
+    padding: 18px;
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+  }
+</style>
+<div class="card">بطاقة تعلم</div>`,
+            validate: (code) => {
+              const ok = /\.card\s*\{[^}]*\bpadding\s*:/i.test(code) &&
+                /\.card\s*\{[^}]*\bborder\s*:/i.test(code) &&
+                /\.card\s*\{[^}]*\bborder-radius\s*:/i.test(code);
+              if (!ok) return { ok: false, message: 'أضف padding و border و border-radius داخل .card.' };
+              return { ok: true, message: 'رائع! فهمت نموذج الصندوق Box Model بوضوح.' };
+            }
+          },
+          {
+            id: 'css-3',
+            levelNumber: 3,
+            title: 'التموضع والخلفيات والظلال',
+            difficulty: 'medium',
+            xp: 110,
+            terms: [
+              { ar: 'التموضع', fr: 'Positionnement', en: 'position (relative / absolute)' },
+              { ar: 'ظل الصندوق', fr: 'Ombre portée', en: 'box-shadow' },
+              { ar: 'تدرج لوني', fr: 'Dégradé linéaire', en: 'linear-gradient' }
+            ],
+            explanation: [
+              'خاصية box-shadow تضيف عمقاً بصرياً للعناصر، و linear-gradient تتيح إنشاء خلفيات متدرجة الألوان.',
+              'خاصية position تتحكم في موقع العنصر وفق التدفق أو بالنسبة لعنصر أب أو للشاشة.'
+            ],
+            syntax: `.box {
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+}`,
+            mission: 'أضف box-shadow و background (أو linear-gradient) و position إلى .box.',
+            hint: 'استخدم box-shadow و background و position داخل .box.',
+            starterCode: `<style>
+  .box {
+    padding: 20px;
+    color: white;
+  }
+</style>
+<div class="box">عنصر بظل وتدرج</div>`,
+            solutionCode: `<style>
+  .box {
+    padding: 20px;
+    color: white;
+    background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.25);
+    position: relative;
+    border-radius: 12px;
+  }
+</style>
+<div class="box">عنصر بظل وتدرج</div>`,
+            validate: (code) => {
+              const ok = /\.box\s*\{[^}]*\bbox-shadow\s*:/i.test(code) &&
+                /\.box\s*\{[^}]*\bbackground(-image)?\s*:/i.test(code) &&
+                /\.box\s*\{[^}]*\bposition\s*:/i.test(code);
+              if (!ok) return { ok: false, message: 'تأكد من وجود box-shadow و background و position داخل .box.' };
+              return { ok: true, message: 'ممتاز! أضفت لمسات بصرية جذابة باستخدام الظلال والتموضع.' };
+            }
+          },
+          {
+            id: 'css-4',
+            levelNumber: 4,
+            title: 'Flexbox للمحاذاة والتوزيع',
+            difficulty: 'medium',
+            xp: 120,
+            terms: [
+              { ar: 'صندوق مرن', fr: 'Disposition flexible', en: 'Flexbox (display: flex)' },
+              { ar: 'توزيع أفقي', fr: 'Justification', en: 'justify-content' },
+              { ar: 'محاذاة عمودية / فجوة', fr: 'Alignement / Espacement', en: 'align-items / gap' }
+            ],
+            explanation: [
+              'Flexbox مثالي لترتيب العناصر في صف أو عمود وتوزيع المسافات بينها بمرونة عالية.',
+              'نستخدم display: flex على الحاوية الأب مع justify-content و align-items و gap.'
+            ],
+            syntax: `.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}`,
+            mission: 'اجعل .row يستخدم display: flex مع justify-content و align-items و gap.',
+            hint: 'اكتب display: flex و justify-content و align-items و gap داخل .row.',
+            starterCode: `<style>
+  .row {
+    /* أضف خصائص Flexbox هنا */
+  }
+  .item { padding: 10px 14px; background: #e2e8f0; border-radius: 8px; }
+</style>
+<div class="row">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+</div>`,
+            solutionCode: `<style>
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .item { padding: 10px 14px; background: #dbeafe; border-radius: 8px; font-weight: bold; }
+</style>
+<div class="row">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+</div>`,
+            validate: (code) => {
+              const ok = /\.row\s*\{[^}]*\bdisplay\s*:\s*flex/i.test(code) &&
+                /\.row\s*\{[^}]*\bjustify-content\s*:/i.test(code) &&
+                /\.row\s*\{[^}]*\balign-items\s*:/i.test(code) &&
+                /\.row\s*\{[^}]*\bgap\s*:/i.test(code);
+              if (!ok) return { ok: false, message: 'أضف display: flex و justify-content و align-items و gap داخل .row.' };
+              return { ok: true, message: 'رائع! Flexbox أداة أساسية جداً في تصميم الواجهات.' };
+            }
+          },
+          {
+            id: 'css-5',
+            levelNumber: 5,
+            title: 'CSS Grid للشبكات',
+            difficulty: 'medium',
+            xp: 130,
+            terms: [
+              { ar: 'تخطيط شبكي', fr: 'Grille CSS', en: 'CSS Grid (display: grid)' },
+              { ar: 'قوالب الأعمدة', fr: 'Colonnes de grille', en: 'grid-template-columns' },
+              { ar: 'تكرار متساوٍ', fr: 'Fraction / Répétition', en: 'repeat(3, 1fr)' }
+            ],
+            explanation: [
+              'CSS Grid يمنحك تحكماً كاملاً في الصفوف والأعمدة معاً لبناء تخطيطات شبكية منظمة.',
+              'الخاصية grid-template-columns تحدد عدد وعرض الأعمدة، مثل repeat(2, 1fr).'
+            ],
+            syntax: `.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}`,
+            mission: 'استخدم display: grid و grid-template-columns و gap داخل .grid.',
+            hint: 'أضف display: grid و grid-template-columns و gap داخل .grid.',
+            starterCode: `<style>
+  .grid {
+    /* أضف خصائص Grid */
+  }
+  .cell { background: #f1f5f9; padding: 12px; border-radius: 8px; }
+</style>
+<div class="grid">
+  <div class="cell">أ</div>
+  <div class="cell">ب</div>
+  <div class="cell">ج</div>
+  <div class="cell">د</div>
+</div>`,
+            solutionCode: `<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .cell { background: #e0e7ff; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; }
+</style>
+<div class="grid">
+  <div class="cell">أ</div>
+  <div class="cell">ب</div>
+  <div class="cell">ج</div>
+  <div class="cell">د</div>
+</div>`,
+            validate: (code) => {
+              const ok = /\.grid\s*\{[^}]*\bdisplay\s*:\s*grid/i.test(code) &&
+                /\.grid\s*\{[^}]*\bgrid-template-columns\s*:/i.test(code) &&
+                /\.grid\s*\{[^}]*\bgap\s*:/i.test(code);
+              if (!ok) return { ok: false, message: 'تأكد من استخدام display: grid و grid-template-columns و gap داخل .grid.' };
+              return { ok: true, message: 'ممتاز! أتقنت التخطيط الشبكي عبر CSS Grid.' };
+            }
+          },
+          {
+            id: 'css-6',
+            levelNumber: 6,
+            title: 'الاستجابة Responsive والانتقالات والرسوم',
+            difficulty: 'hard',
+            xp: 165,
+            terms: [
+              { ar: 'تصميم متجاوب', fr: 'Design adaptatif', en: 'Responsive (@media)' },
+              { ar: 'انتقال سلس', fr: 'Transition fluide', en: 'transition' },
+              { ar: 'حركة إطارية', fr: 'Animation clé', en: '@keyframes' }
+            ],
+            explanation: [
+              'عبر @media queries نغير التنسيق حسب عرض الشاشة لتبدو الصفحة ممتازة على الهاتف والحاسوب.',
+              'خاصية transition تجعل تغيّر الخصائص عند التحويم (:hover) ناعماً وسلساً.'
+            ],
+            syntax: `.btn {
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+.btn:hover {
+  transform: scale(1.05);
+}
+@media (max-width: 600px) {
+  .btn { width: 100%; }
+}`,
+            mission: 'أضف transition على .btn، وحالة .btn:hover، وقاعدة @media لتكييف العرض على الشاشات الصغيرة.',
+            hint: 'تأكد من وجود transition و :hover و @media في الكود.',
+            starterCode: `<style>
+  .btn {
+    padding: 10px 18px;
+    background: #059669;
+    color: white;
+    border: none;
+    border-radius: 8px;
+  }
+</style>
+<button class="btn">اضغط هنا</button>`,
+            solutionCode: `<style>
+  .btn {
+    padding: 10px 18px;
+    background: #059669;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  .btn:hover {
+    background: #047857;
+    transform: translateY(-2px);
+  }
+  @media (max-width: 600px) {
+    .btn { width: 100%; }
+  }
+</style>
+<button class="btn">اضغط هنا</button>`,
+            validate: (code) => {
+              const ok = /\btransition\s*:/i.test(code) && /:hover/i.test(code) && /@media\b/i.test(code);
+              if (!ok) return { ok: false, message: 'أضف transition و :hover وقاعدة @media لإتمام المرحلة.' };
+              return { ok: true, message: 'رائع! أصبحت واجهتك متجاوبة وحيوية.' };
+            }
+          },
+          {
+            id: 'css-7',
+            levelNumber: 7,
+            title: 'المتغيرات والمحددات المتقدمة والمعمارية',
+            difficulty: 'hard',
+            xp: 200,
+            terms: [
+              { ar: 'متغيرات CSS', fr: 'Variables CSS', en: 'CSS Custom Properties (--var)' },
+              { ar: 'الجذر العام', fr: 'Racine globale', en: ':root' },
+              { ar: 'دالة var()', fr: 'Fonction var()', en: 'var(--primary)' }
+            ],
+            explanation: [
+              'متغيرات CSS تُعرّف غالباً في :root بصيغة --اسم-المتغير ثم تُستدعى عبر var(--اسم-المتغير).',
+              'هذا يسهل توحيد الهوية البصرية وتبديل الألوان في كامل المشروع من مكان واحد.'
+            ],
+            syntax: `:root {
+  --primary: #2563eb;
+  --radius: 12px;
+}
+.panel {
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+}`,
+            mission: 'عرّف متغيراً واحداً على الأقل في :root واستخدمه عبر var(...) في تنسيق عنصر.',
+            hint: 'اكتب :root { --main-color: #...; } ثم استخدم var(--main-color).',
+            starterCode: `<style>
+  :root {
+    --brand: #4f46e5;
+  }
+  .box {
+    padding: 16px;
+  }
+</style>
+<div class="box">تنسيق بالمتغيرات</div>`,
+            solutionCode: `<style>
+  :root {
+    --brand: #4f46e5;
+    --soft-bg: #eef2ff;
+  }
+  .box {
+    padding: 16px;
+    background: var(--soft-bg);
+    border-right: 4px solid var(--brand);
+    color: var(--brand);
+    font-weight: bold;
+  }
+</style>
+<div class="box">تنسيق بالمتغيرات</div>`,
+            validate: (code) => {
+              const hasRootVar = /:root\s*\{[^}]*--[a-zA-Z0-9_-]+\s*:/i.test(code);
+              const usesVar = /\bvar\(\s*--[a-zA-Z0-9_-]+\s*\)/i.test(code);
+              if (!hasRootVar || !usesVar) return { ok: false, message: 'عرّف متغيراً في :root واستخدمه عبر var(--...) داخل التنسيق.' };
+              return { ok: true, message: 'مذهل! أتممت جميع مراحل CSS بنجاح وتفوق!' };
+            }
+          }
+        ]
+      },
+
+      // -------------------------- مسار 3: Python --------------------------
+      {
+        id: 'python',
+        name: 'Python',
+        subtitle: 'البرمجة المنطقية والبيانات والدوال',
+        icon: '🐍',
+        editorLang: 'Python',
+        accent: 'from-emerald-500 to-teal-600',
+        levels: [
+          {
+            id: 'py-1',
+            levelNumber: 1,
+            title: 'المتغيرات وأنواع البيانات والطباعة',
+            difficulty: 'easy',
+            xp: 80,
+            terms: [
+              { ar: 'متغير', fr: 'Variable', en: 'Variable' },
+              { ar: 'سلسلة نصية / عدد صحيح', fr: 'Chaîne / Entier', en: 'str / int' },
+              { ar: 'دالة الطباعة', fr: 'Fonction affichage', en: 'print()' }
+            ],
+            explanation: [
+              'المتغير هو صندوق يحفظ قيمة في الذاكرة مثل الاسم أو العمر أو السعر، ولا نحتاج لتحديد نوعه مسبقاً في Python.',
+              'نستخدم print(...) لعرض النتائج على الشاشة، وتعتمد Python على المسافات البادئة (Indentation).'
+            ],
+            syntax: `name = "Sara"
+age = 20
+print("Name:", name, "Age:", age)`,
+            mission: 'عرّف متغيراً باسم city يحمل اسم مدينة، ومتغيراً باسم score يحمل رقماً، ثم اطبعهما بواسطة print().',
+            hint: 'اكتب city = "Rabat" و score = 95 ثم print(city, score).',
+            starterCode: `# اكتب كود Python هنا
+city = ""
+score = 0
+print()`,
+            solutionCode: `city = "Tangier"
+score = 92
+print("City:", city, "Score:", score)`,
+            validate: (code, output) => {
+              const hasCity = /\bcity\s*=\s*["'][^"']+["']/.test(code);
+              const hasScore = /\bscore\s*=\s*\d+/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code);
+              if (!hasCity || !hasScore) return { ok: false, message: 'عرّف المتغير city (نص) والمتغير score (رقم).' };
+              if (!hasPrint || !output.trim()) return { ok: false, message: 'استخدم دالة print() لطباعة النتيجة.' };
+              return { ok: true, message: 'ممتاز! أول خطوة صحيحة في لغة Python.' };
+            }
+          },
+          {
+            id: 'py-2',
+            levelNumber: 2,
+            title: 'الشروط if / elif / else',
+            difficulty: 'easy',
+            xp: 90,
+            terms: [
+              { ar: 'جملة شرطية', fr: 'Condition', en: 'if / elif / else' },
+              { ar: 'معامل مقارنة', fr: 'Opérateur de comparaison', en: '>= , == , <' },
+              { ar: 'إزاحة / مسافة بادئة', fr: 'Indentation', en: 'Indentation (4 spaces)' }
+            ],
+            explanation: [
+              'تسمح الشروط للبرنامج باتخاذ قرار بناءً على تحقق شرط منطقي.',
+              'نضع نقطتين : بعد الشرط، ونُزيح الأوامر التابعة للشرط بمسافات بادئة.'
+            ],
+            syntax: `grade = 15
+if grade >= 10:
+    print("Pass")
+else:
+    print("Retry")`,
+            mission: 'اكتب شرطاً باستخدام if و else يتحقق من قيمة متغير grade ويطبع رسالة عبر print().',
+            hint: 'استخدم if ...: متبوعة بسطر مُزاح فيه print(...) ثم else: متبوعة بـ print(...).',
+            starterCode: `grade = 14
+# أضف شرط if و else هنا
+`,
+            solutionCode: `grade = 14
+if grade >= 10:
+    print("ناجح")
+else:
+    print("بحاجة لمراجعة")`,
+            validate: (code, output) => {
+              const hasIf = /\bif\b.+:/.test(code);
+              const hasElse = /\belse\s*:/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code);
+              if (!hasIf || !hasElse || !hasPrint) return { ok: false, message: 'استخدم if ...: و else: مع print() بداخل كل فرع.' };
+              if (!output.trim()) return { ok: false, message: 'تأكد من ظهور مخرجات الطباعة عند التنفيذ.' };
+              return { ok: true, message: 'رائع! أتقنت اتخاذ القرار الشرطي في Python.' };
+            }
+          },
+          {
+            id: 'py-3',
+            levelNumber: 3,
+            title: 'الحلقات for و while',
+            difficulty: 'medium',
+            xp: 115,
+            terms: [
+              { ar: 'حلقة تكرار', fr: 'Boucle', en: 'for / while loop' },
+              { ar: 'مجال أرقام', fr: 'Intervalle', en: 'range()' },
+              { ar: 'عداد / تراكم', fr: 'Compteur / Accumulateur', en: 'Counter / Sum' }
+            ],
+            explanation: [
+              'تُستخدم الحلقات لتنفيذ مجموعة تعليمات عدة مرات دون تكرار كتابتها.',
+              'حلقة for i in range(1, 6): تمر على الأرقام من 1 إلى 5.'
+            ],
+            syntax: `total = 0
+for i in range(1, 5):
+    total += i
+print("Total:", total)`,
+            mission: 'اكتب حلقة for مع range() تحسب مجموعاً أو تطبع قيماً وتعرض النتيجة عبر print().',
+            hint: 'استخدم for ... in range(...): واطبع النتيجة عبر print().',
+            starterCode: `total = 0
+# اكتب حلقة for هنا
+
+print(total)`,
+            solutionCode: `total = 0
+for i in range(1, 6):
+    total += i
+print("المجموع:", total)`,
+            validate: (code, output) => {
+              const hasForRange = /\bfor\b.+\bin\b.*\brange\s*\(/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasForRange) return { ok: false, message: 'استخدم حلقة for مع range() لإتمام هذه المرحلة.' };
+              if (!hasPrint) return { ok: false, message: 'اطبع النتيجة عبر print().' };
+              return { ok: true, message: 'ممتاز! الحلقات توفر عليك الكثير من الجهد والوقت.' };
+            }
+          },
+          {
+            id: 'py-4',
+            levelNumber: 4,
+            title: 'القوائم والقواميس Lists & Dicts',
+            difficulty: 'medium',
+            xp: 125,
+            terms: [
+              { ar: 'قائمة', fr: 'Liste', en: 'List ([])' },
+              { ar: 'قاموس (مفتاح : قيمة)', fr: 'Dictionnaire', en: 'Dictionary ({key: value})' },
+              { ar: 'فهرس / عنصر', fr: 'Index / Élément', en: 'Index / Item' }
+            ],
+            explanation: [
+              'القائمة (List) تخزن عدة عناصر مرتبة داخل قوسين مربعين [...]، ويبدأ الفهرس (Index) من 0.',
+              'القاموس (Dict) يخزن أزواجاً من (مفتاح : قيمة) داخل {...} للوصول السريع بالاسم.'
+            ],
+            syntax: `skills = ["HTML", "CSS", "Python"]
+student = {"name": "Youssef", "level": 2}
+print(skills[0], student["name"])`,
+            mission: 'عرّف قائمة (List) وقاموساً (Dict) ثم اطبع قيمة من كليهما عبر print().',
+            hint: 'أنشئ متغيراً بقائمة [...] وآخر بقاموس {"key": "value"} ثم اطبعهما.',
+            starterCode: `courses = []
+profile = {}
+print(courses, profile)`,
+            solutionCode: `courses = ["HTML", "CSS", "Python"]
+profile = {"name": "Salma", "track": "Web"}
+print(courses[0], profile["name"])`,
+            validate: (code, output) => {
+              const hasList = /=\s*\[[^\]]+\]/.test(code);
+              const hasDict = /=\s*\{[^}]+\}/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasList || !hasDict) return { ok: false, message: 'عرّف قائمة غير فارغة [...] وقاموساً غير فارغ {...}.' };
+              if (!hasPrint) return { ok: false, message: 'اطبع البيانات عبر print().' };
+              return { ok: true, message: 'رائع! القوائم والقواميس هما العمود الفقري لمعالجة البيانات.' };
+            }
+          },
+          {
+            id: 'py-5',
+            levelNumber: 5,
+            title: 'الدوال Functions والمعاملات',
+            difficulty: 'medium',
+            xp: 135,
+            terms: [
+              { ar: 'تعريف دالة', fr: 'Définition de fonction', en: 'def function_name(params):' },
+              { ar: 'إرجاع قيمة', fr: 'Valeur de retour', en: 'return' },
+              { ar: 'استدعاء دالة', fr: 'Appel de fonction', en: 'Function Call' }
+            ],
+            explanation: [
+              'الدالة (Function) تجمع مجموعة تعليمات قابلة لإعادة الاستخدام تحت اسم واضح.',
+              'نُعرّفها بـ def ونُعيد النتيجة بـ return، ثم نستدعيها عند الحاجة.'
+            ],
+            syntax: `def double_num(n):
+    return n * 2
+
+print(double_num(7))`,
+            mission: 'عرّف دالة باستخدام def تقبل معاملاً وتُرجع قيمة عبر return، ثم استدعها واطبع نتيجتها.',
+            hint: 'اكتب def ...(...): وبداخلها return ... ثم استدعِ الدالة داخل print().',
+            starterCode: `def greet(name):
+    # أضف return هنا
+    pass
+
+print(greet("Adam"))`,
+            solutionCode: `def greet(name):
+    return "مرحباً " + name
+
+print(greet("Adam"))`,
+            validate: (code, output) => {
+              const hasDef = /\bdef\s+[a-zA-Z_][a-zA-Z0-9_]*\s*\([^)]*\)\s*:/.test(code);
+              const hasReturn = /\breturn\b/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasDef || !hasReturn) return { ok: false, message: 'عرّف دالة بـ def واستخدم return لإرجاع قيمة.' };
+              if (!hasPrint) return { ok: false, message: 'استدعِ الدالة داخل print() لعرض النتيجة.' };
+              return { ok: true, message: 'ممتاز! الدوال تجعل كودك نظيفاً وقابلاً لإعادة الاستخدام.' };
+            }
+          },
+          {
+            id: 'py-6',
+            levelNumber: 6,
+            title: 'معالجة الأخطاء والملفات والوحدات',
+            difficulty: 'hard',
+            xp: 170,
+            terms: [
+              { ar: 'معالجة الاستثناءات', fr: 'Gestion des exceptions', en: 'try / except' },
+              { ar: 'نوع الخطأ', fr: 'Type d’erreur', en: 'ZeroDivisionError / ValueError' },
+              { ar: 'استيراد وحدة', fr: 'Importation de module', en: 'import math' }
+            ],
+            explanation: [
+              'كتلة try / except تحمي البرنامج من التوقف المفاجئ عند حدوث خطأ مثل القسمة على صفر أو تحويل نص غير رقمي.',
+              'يمكننا أيضاً استيراد وحدات جاهزة مثل math لتنفيذ عمليات رياضية متقدمة.'
+            ],
+            syntax: `import math
+try:
+    x = 10 / 2
+    print(math.sqrt(16), x)
+except ZeroDivisionError:
+    print("لا يمكن القسمة على صفر")`,
+            mission: 'استخدم try و except لمعالجة خطأ محتمل، واطبع رسالة واضحة عبر print().',
+            hint: 'اكتب try: متبوعة بسطر مُزاح ثم except ...: متبوعة بـ print().',
+            starterCode: `try:
+    result = 10 / 0
+    print(result)
+except ZeroDivisionError:
+    # اطبع رسالة توضيحية
+    pass`,
+            solutionCode: `try:
+    result = 10 / 0
+    print(result)
+except ZeroDivisionError:
+    print("تنبيه: محاولة القسمة على صفر تم التعامل معها بأمان")`,
+            validate: (code, output) => {
+              const hasTry = /\btry\s*:/.test(code);
+              const hasExcept = /\bexcept\b[^:]*:/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasTry || !hasExcept) return { ok: false, message: 'استخدم بنية try: و except: لمعالجة الأخطاء.' };
+              if (!hasPrint) return { ok: false, message: 'اطبع رسالة واضحة داخل الكود.' };
+              return { ok: true, message: 'رائع! أصبحت برامجك أكثر أماناً وموثوقية عند الأخطاء.' };
+            }
+          },
+          {
+            id: 'py-7',
+            levelNumber: 7,
+            title: 'التلاعب المتقدم بالبيانات والخوارزميات الصغيرة',
+            difficulty: 'hard',
+            xp: 210,
+            terms: [
+              { ar: 'توليد القوائم', fr: 'Compréhension de liste', en: 'List Comprehension' },
+              { ar: 'تصفية / فرز', fr: 'Filtrage / Tri', en: 'Filtering / Sorting' },
+              { ar: 'معالجة منطقية', fr: 'Traitement algorithmique', en: 'Algorithmic Logic' }
+            ],
+            explanation: [
+              'تتيح List Comprehension بناء قوائم جديدة بوضوح واختصار، مثل استخراج الأعداد الزوجية أو حساب مربعات الأعداد.',
+              'الجمع بين الحلقات والشروط والدوال يمكّنك من حل مسائل برمجية متكاملة.'
+            ],
+            syntax: `nums = [1, 2, 3, 4, 5, 6]
+evens = [n for n in nums if n % 2 == 0]
+print(evens)`,
+            mission: 'استخدم List Comprehension لإنشاء قائمة جديدة من قائمة nums، ثم اطبع النتيجة.',
+            hint: 'اكتب تعبيراً مثل [x * 2 for x in nums] أو [x for x in nums if x > 2] واطبعه.',
+            starterCode: `nums = [2, 5, 8, 11, 14]
+# أنشئ قائمة جديدة باستخدام List Comprehension
+filtered = []
+print(filtered)`,
+            solutionCode: `nums = [2, 5, 8, 11, 14]
+filtered = [n for n in nums if n >= 8]
+print("القيم الأكبر أو تساوي 8:", filtered)`,
+            validate: (code, output) => {
+              const hasComprehension = /\[[^\]]+\bfor\b[^\]]+\bin\b[^\]]+\]/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasComprehension) return { ok: false, message: 'استخدم صيغة List Comprehension داخل أقواس [...] مع for و in.' };
+              if (!hasPrint) return { ok: false, message: 'اطبع النتيجة عبر print().' };
+              return { ok: true, message: 'مذهل! أتممت جميع مراحل Python بنجاح كبير!' };
+            }
+          }
+        ]
+      },
+
+      // -------------------------- مسار 4: POO --------------------------
+      {
+        id: 'poo',
+        name: 'POO',
+        subtitle: 'البرمجة الكائنية التوجه (OOP)',
+        icon: '🧱',
+        editorLang: 'Python (POO)',
+        accent: 'from-violet-600 to-fuchsia-600',
+        levels: [
+          {
+            id: 'poo-1',
+            levelNumber: 1,
+            title: 'مفهوم الكلاس والكائن Class & Object',
+            difficulty: 'easy',
+            xp: 85,
+            terms: [
+              { ar: 'كلاس / صنف', fr: 'Classe', en: 'Class' },
+              { ar: 'كائن / مثيل', fr: 'Objet / Instance', en: 'Object / Instance' },
+              { ar: 'خاصية / سمة', fr: 'Attribut', en: 'Attribute' }
+            ],
+            explanation: [
+              'البرمجة الكائنية التوجه (POO / OOP) تنظم الكود حول كائنات تمثل مفاهيم واقعية مثل منتج أو طالب أو حساب.',
+              'الكلاس (Class) هو المخطط أو القالب، والكائن (Object) هو نسخة حقيقية تُنشأ من هذا الكلاس.'
+            ],
+            syntax: `class Book:
+    title = "Clean Code"
+
+b1 = Book()
+print(b1.title)`,
+            mission: 'عرّف كلاس باسم Car يحتوي على خاصية، ثم أنشئ كائناً منه واطبع خاصيته.',
+            hint: 'اكتب class Car: مع خاصية بداخلها، ثم car1 = Car() واطبع car1.خاصية.',
+            starterCode: `class Car:
+    brand = "Toyota"
+
+# أنشئ كائناً من Car واطبع خاصيته
+`,
+            solutionCode: `class Car:
+    brand = "Toyota"
+
+my_car = Car()
+print("Brand:", my_car.brand)`,
+            validate: (code, output) => {
+              const hasClass = /\bclass\s+[A-Z][a-zA-Z0-9_]*\s*:/.test(code);
+              const hasInstance = /=\s*[A-Z][a-zA-Z0-9_]*\s*\(\s*\)/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasClass || !hasInstance) return { ok: false, message: 'عرّف كلاس (class ...) وأنشئ كائناً منها (...()).' };
+              if (!hasPrint) return { ok: false, message: 'اطبع خاصية الكائن عبر print().' };
+              return { ok: true, message: 'ممتاز! فرّقت بين الكلاس (القالب) والكائن (النسخة).' };
+            }
+          },
+          {
+            id: 'poo-2',
+            levelNumber: 2,
+            title: 'المُنشئ والخصائص والدوال init / attributes / methods',
+            difficulty: 'easy',
+            xp: 100,
+            terms: [
+              { ar: 'دالة البناء / المُنشئ', fr: 'Constructeur', en: '__init__(self, ...)' },
+              { ar: 'الذات / الكائن الحالي', fr: 'Instance courante', en: 'self' },
+              { ar: 'دالة / أسلوب الكائن', fr: 'Méthode', en: 'Method' }
+            ],
+            explanation: [
+              'الدالة __init__(self, ...) تُنفذ تلقائياً عند إنشاء كائن جديد لتعريف خصائصه الخاصة عبر self.',
+              'الدوال داخل الكلاس (Methods) تعبّر عن سلوك الكائن وتستقبل self كأول معامل.'
+            ],
+            syntax: `class Student:
+    def __init__(self, name):
+        self.name = name
+
+    def introduce(self):
+        return f"أنا الطالب {self.name}"
+
+s = Student("Nadia")
+print(s.introduce())`,
+            mission: 'أنشئ كلاس تحتوي على __init__(self, ...) ودالة (method) تستدعيها على كائن وتطبع نتيجتها.',
+            hint: 'تأكد من وجود def __init__(self, ...) ودالة أخرى داخل الكلاس تأخذ self.',
+            starterCode: `class Product:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+    def describe(self):
+        return f"{self.name} - {self.price} DH"
+
+p1 = Product("Laptop", 6500)
+print(p1.describe())`,
+            solutionCode: `class Product:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+    def describe(self):
+        return f"المنتج: {self.name} | السعر: {self.price} درهم"
+
+p1 = Product("Laptop", 6500)
+print(p1.describe())`,
+            validate: (code, output) => {
+              const hasInit = /def\s+__init__\s*\(\s*self/.test(code);
+              const hasMethod = /def\s+[a-zA-Z_][a-zA-Z0-9_]*\s*\(\s*self/.test(code) && /def\s+(?!__init__)[a-zA-Z_][a-zA-Z0-9_]*\s*\(\s*self/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasInit || !hasMethod) return { ok: false, message: 'تأكد من وجود __init__(self, ...) ودالة أخرى (method) داخل الكلاس.' };
+              if (!hasPrint) return { ok: false, message: 'استدعِ الدالة على الكائن واطبع النتيجة.' };
+              return { ok: true, message: 'رائع! أتقنت المُنشئ __init__ و self والدوال.' };
+            }
+          },
+          {
+            id: 'poo-3',
+            levelNumber: 3,
+            title: 'التغليف Encapsulation وحماية البيانات',
+            difficulty: 'medium',
+            xp: 125,
+            terms: [
+              { ar: 'التغليف', fr: 'Encapsulation', en: 'Encapsulation' },
+              { ar: 'خاصية محمية / خاصة', fr: 'Attribut privé / protégé', en: '_protected / __private' },
+              { ar: 'دالة وصول / تعديل', fr: 'Accesseur / Mutateur', en: 'Getter / Setter Methods' }
+            ],
+            explanation: [
+              'التغليف (Encapsulation) يعني إخفاء التفاصيل الداخلية للبيانات ومنع التعديل العشوائي المباشر عليها، وتمرير التعديل عبر دوال تتحقق من الصحة.',
+              'في Python نستخدم الشرطة السفلية _ أو الشرطتين __ للدلالة على الخصوصية وتوفير دوال واضحة للتحكم.'
+            ],
+            syntax: `class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.__balance += amount
+
+    def get_balance(self):
+        return self.__balance`,
+            mission: 'أنشئ كلاس تستخدم خاصية محمية/خاصة (_ أو __) ودالة للتحكم أو القراءة، ثم اطبع النتيجة.',
+            hint: 'عرّف خاصية مثل self.__balance أو self._balance ودالة للقراءة أو التعديل.',
+            starterCode: `class Wallet:
+    def __init__(self, amount):
+        self.__amount = amount
+
+    def get_amount(self):
+        return self.__amount
+
+w = Wallet(200)
+print(w.get_amount())`,
+            solutionCode: `class Wallet:
+    def __init__(self, amount):
+        self.__amount = amount
+
+    def add_funds(self, value):
+        if value > 0:
+            self.__amount += value
+
+    def get_amount(self):
+        return self.__amount
+
+w = Wallet(200)
+w.add_funds(150)
+print("الرصيد الحالي:", w.get_amount())`,
+            validate: (code, output) => {
+              const hasPrivateAttr = /self\._+[a-zA-Z0-9_]+/.test(code);
+              const hasDef = /\bdef\s+[a-zA-Z_][a-zA-Z0-9_]*\s*\(\s*self/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasPrivateAttr || !hasDef) return { ok: false, message: 'استخدم خاصية تبدأ بـ _ أو __ داخل الكلاس مع دالة للتحكم أو القراءة.' };
+              if (!hasPrint) return { ok: false, message: 'اطبع النتيجة عبر print().' };
+              return { ok: true, message: 'ممتاز! طبّقت مبدأ التغليف (Encapsulation) لحماية البيانات.' };
+            }
+          },
+          {
+            id: 'poo-4',
+            levelNumber: 4,
+            title: 'الوراثة Inheritance وإعادة الاستخدام',
+            difficulty: 'medium',
+            xp: 135,
+            terms: [
+              { ar: 'الوراثة', fr: 'Héritage', en: 'Inheritance' },
+              { ar: 'كلاس أب / كلاس ابن', fr: 'Classe mère / fille', en: 'Parent / Child Class' },
+              { ar: 'استدعاء الأب', fr: 'Appel du parent', en: 'super()' }
+            ],
+            explanation: [
+              'الوراثة (Inheritance) تسمح لكلاس جديدة (الابن) برث خصائص ودوال كلاس موجودة (الأب) لتجنب تكرار الكود وإضافة ميزات خاصة.',
+              'نكتب class Child(Parent): ونستخدم super() للوصول إلى سلوك الكلاس الأب.'
+            ],
+            syntax: `class Animal:
+    def speak(self):
+        return "صوت"
+
+class Dog(Animal):
+    def speak(self):
+        return super().speak() + ": هوو"
+
+d = Dog()
+print(d.speak())`,
+            mission: 'عرّف كلاس أب وكلاس ابن يرث منها class Child(Parent):، ثم أنشئ كائناً من الابن واطبع نتيجة دالة.',
+            hint: 'اكتب class Child(Parent): واستدعِ الدالة على كائن من الابن.',
+            starterCode: `class Employee:
+    def __init__(self, name):
+        self.name = name
+
+    def role(self):
+        return f"{self.name} - موظف"
+
+class Manager(Employee):
+    def role(self):
+        return f"{self.name} - مدير"
+
+m = Manager("Karim")
+print(m.role())`,
+            solutionCode: `class Employee:
+    def __init__(self, name):
+        self.name = name
+
+    def role(self):
+        return f"{self.name} - موظف"
+
+class Manager(Employee):
+    def role(self):
+        return f"{self.name} - مدير فريق"
+
+m = Manager("Karim")
+print(m.role())`,
+            validate: (code, output) => {
+              const hasInheritance = /\bclass\s+[A-Z][a-zA-Z0-9_]*\s*\(\s*[A-Z][a-zA-Z0-9_]*\s*\)\s*:/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasInheritance) return { ok: false, message: 'عرّف كلاس ترث من كلاس أخرى بصيغة class الابن(الأب):.' };
+              if (!hasPrint) return { ok: false, message: 'اطبع النتيجة عبر print().' };
+              return { ok: true, message: 'رائع! الوراثة تختصر الكود وتُظهر العلاقة بين الكائنات.' };
+            }
+          },
+          {
+            id: 'poo-5',
+            levelNumber: 5,
+            title: 'تعدد الأشكال Polymorphism وتجاوز الدوال',
+            difficulty: 'medium',
+            xp: 145,
+            terms: [
+              { ar: 'تعدد الأشكال', fr: 'Polymorphisme', en: 'Polymorphism' },
+              { ar: 'إعادة تعريف / تجاوز', fr: 'Redéfinition', en: 'Method Overriding' },
+              { ar: 'واجهة موحدة', fr: 'Interface commune', en: 'Common Interface' }
+            ],
+            explanation: [
+              'تعدد الأشكال (Polymorphism) يعني أن كائنات من كلاسات مختلفة يمكن أن تستجيب لنفس اسم الدالة بطرق مختلفة.',
+              'هذا يجعل الكود مرناً جداً عند التعامل مع مجموعات متنوعة من الكائنات بنفس الطريقة.'
+            ],
+            syntax: `class Cat:
+    def sound(self):
+        return "مواء"
+
+class Duck:
+    def sound(self):
+        return "بطة"
+
+for creature in [Cat(), Duck()]:
+    print(creature.sound())`,
+            mission: 'أنشئ كلاسين مختلفين لهما نفس اسم الدالة، ثم مرّ عليهما في حلقة واطبع نتيجتها.',
+            hint: 'عرّف نفس اسم الدالة في كلاسين، ثم استخدم حلقة for لطباعة النتيجة.',
+            starterCode: `class Circle:
+    def draw(self):
+        return "رسم دائرة"
+
+class Square:
+    def draw(self):
+        return "رسم مربع"
+
+shapes = [Circle(), Square()]
+for s in shapes:
+    print(s.draw())`,
+            solutionCode: `class Circle:
+    def draw(self):
+        return "رسم دائرة"
+
+class Square:
+    def draw(self):
+        return "رسم مربع"
+
+shapes = [Circle(), Square()]
+for s in shapes:
+    print(s.draw())`,
+            validate: (code, output) => {
+              const classesCount = (code.match(/\bclass\s+[A-Z][a-zA-Z0-9_]*/g) || []).length;
+              const hasLoop = /\bfor\b/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (classesCount < 2 || !hasLoop) return { ok: false, message: 'عرّف كلاسين على الأقل واستخدم حلقة for لعرض تعدد الأشكال.' };
+              if (!hasPrint) return { ok: false, message: 'اطبع النتائج عبر print().' };
+              return { ok: true, message: 'ممتاز! تعدد الأشكال يمنح الأنظمة مرونة عالية.' };
+            }
+          },
+          {
+            id: 'poo-6',
+            levelNumber: 6,
+            title: 'التجريد والخصائص المتقدمة Abstraction & Properties',
+            difficulty: 'hard',
+            xp: 175,
+            terms: [
+              { ar: 'التجريد', fr: 'Abstraction', en: 'Abstraction (ABC)' },
+              { ar: 'خاصية مُدارة', fr: 'Propriété', en: '@property' },
+              { ar: 'دالة مجردة', fr: 'Méthode abstraite', en: '@abstractmethod' }
+            ],
+            explanation: [
+              'التجريد (Abstraction) يركز على "ماذا يفعل الكائن" ويخفي التفاصيل المعقدة لـ "كيف يفعلها".',
+              'يمكن استخدام @property لجعل الدالة تُقرأ كخاصية، أو abc لتحديد عقد للكلاسات الفرعية.'
+            ],
+            syntax: `class Temperature:
+    def __init__(self, celsius):
+        self._celsius = celsius
+
+    @property
+    def fahrenheit(self):
+        return (self._celsius * 9 / 5) + 32`,
+            mission: 'استخدم @property (أو abc / abstractmethod) داخل كلاس واطبع النتيجة.',
+            hint: 'أضف @property فوق دالة داخل الكلاس ثم اطبع قيمتها.',
+            starterCode: `class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    @property
+    def area(self):
+        return self.width * self.height
+
+r = Rectangle(5, 4)
+print("المساحة:", r.area)`,
+            solutionCode: `class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+
+    @property
+    def area(self):
+        return self.width * self.height
+
+r = Rectangle(5, 4)
+print("المساحة:", r.area)`,
+            validate: (code, output) => {
+              const hasPropOrAbc = /@property|\babstractmethod\b|\bABC\b/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasPropOrAbc) return { ok: false, message: 'استخدم @property أو ABC / abstractmethod لإتمام هذه المرحلة.' };
+              if (!hasPrint) return { ok: false, message: 'اطبع النتيجة عبر print().' };
+              return { ok: true, message: 'رائع! أتقنت مفاهيم التجريد والخصائص المتقدمة.' };
+            }
+          },
+          {
+            id: 'poo-7',
+            levelNumber: 7,
+            title: 'تصميم نظام متكامل بالكائنات',
+            difficulty: 'hard',
+            xp: 220,
+            terms: [
+              { ar: 'تصميم كائني', fr: 'Conception orientée objet', en: 'Object-Oriented Design' },
+              { ar: 'تفاعل الكائنات', fr: 'Collaboration d’objets', en: 'Object Collaboration' },
+              { ar: 'إدارة حالة', fr: 'Gestion d’état', en: 'State Management' }
+            ],
+            explanation: [
+              'في الأنظمة الحقيقية تتعاون عدة كائنات معاً؛ مثلاً كلاس Cart (سلة) تحتوي على عناصر وتُرجع الإجمالي أو عدد العناصر.',
+              'تصميم الكلاسات بوضوح يجعل النظام قابلاً للتوسع والصيانة بسهولة.'
+            ],
+            syntax: `class Cart:
+    def __init__(self):
+        self.items = []
+
+    def add(self, price):
+        self.items.append(price)
+
+    def total(self):
+        return sum(self.items)`,
+            mission: 'صمّم كلاس تحتوي على قائمة داخلية ودالتين على الأقل (إضافة وحساب أو عرض)، ثم اختبرها واطبع النتيجة.',
+            hint: 'أنشئ كلاس مع __init__ ودالتين، ثم أنشئ كائناً واستدعِ الدالتين واطبع النتيجة.',
+            starterCode: `class Cart:
+    def __init__(self):
+        self.prices = []
+
+    def add_item(self, price):
+        self.prices.append(price)
+
+    def total(self):
+        return sum(self.prices)
+
+cart = Cart()
+cart.add_item(120)
+cart.add_item(80)
+print("المجموع:", cart.total())`,
+            solutionCode: `class Cart:
+    def __init__(self):
+        self.prices = []
+
+    def add_item(self, price):
+        self.prices.append(price)
+
+    def total(self):
+        return sum(self.prices)
+
+cart = Cart()
+cart.add_item(120)
+cart.add_item(80)
+print("إجمالي السلة:", cart.total(), "درهم")`,
+            validate: (code, output) => {
+              const defsCount = (code.match(/\bdef\s+[a-zA-Z_][a-zA-Z0-9_]*\s*\(/g) || []).length;
+              const hasClass = /\bclass\s+[A-Z][a-zA-Z0-9_]*/.test(code);
+              const hasPrint = /\bprint\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasClass || defsCount < 3) return { ok: false, message: 'صمّم كلاس تحتوي على __init__ ودالتين إضافيتين على الأقل.' };
+              if (!hasPrint) return { ok: false, message: 'اطبع نتيجة النظام عبر print().' };
+              return { ok: true, message: 'أسطوري! أتممت جميع مراحل POO بنجاح تام!' };
+            }
+          }
+        ]
+      },
+
+      // -------------------------- مسار 5: Algorithme --------------------------
+      {
+        id: 'algo',
+        name: 'Algorithme',
+        subtitle: 'التفكير المنطقي والخوارزميات وحل المشكلات',
+        icon: '🧠',
+        editorLang: 'Pseudo / JS-Python Logic',
+        accent: 'from-amber-500 to-rose-600',
+        levels: [
+          {
+            id: 'algo-1',
+            levelNumber: 1,
+            title: 'المدخلات والعمليات والمخرجات',
+            difficulty: 'easy',
+            xp: 80,
+            terms: [
+              { ar: 'مدخلات / عمليات / مخرجات', fr: 'Entrées / Traitement / Sorties', en: 'Input / Process / Output (IPO)' },
+              { ar: 'خوارزمية', fr: 'Algorithme', en: 'Algorithm' },
+              { ar: 'تسلسل خطوات', fr: 'Séquence', en: 'Sequence' }
+            ],
+            explanation: [
+              'الخوارزمية هي سلسلة خطوات واضحة ومحددة لحل مشكلة معينة خطوة بخطوة.',
+              'أي عملية برمجية تبدأ بمدخلات (Input)، ثم معالجة وحسابات (Process)، ثم مخرجات (Output).'
+            ],
+            syntax: `// مدخلات -> عملية -> مخرجات
+let price = 200;
+let discount = 30;
+let finalPrice = price - discount;
+console.log(finalPrice);`,
+            mission: 'اكتب خطوات تحسب قيمة ناتجة من متغيرين وتعرضها عبر console.log() أو print().',
+            hint: 'عرّف متغيرين، احسب ناتجاً بينهما، ثم اطبعه.',
+            starterCode: `let a = 15;
+let b = 25;
+let sum = 0;
+// احسب المجموع واطبعه
+`,
+            solutionCode: `let a = 15;
+let b = 25;
+let sum = a + b;
+console.log("المجموع:", sum);`,
+            validate: (code, output) => {
+              const hasOutput = /(console\.log|print)\s*\(/.test(code) && output.trim().length > 0;
+              const hasOp = /[+\-*/]/.test(code);
+              if (!hasOp || !hasOutput) return { ok: false, message: 'نفّذ عملية حسابية واطبع نتيجتها.' };
+              return { ok: true, message: 'ممتاز! فهمت نموذج المدخلات والعمليات والمخرجات.' };
+            }
+          },
+          {
+            id: 'algo-2',
+            levelNumber: 2,
+            title: 'البنية الشرطية واتخاذ القرار',
+            difficulty: 'easy',
+            xp: 90,
+            terms: [
+              { ar: 'تفرع شرطي', fr: 'Structure conditionnelle', en: 'Conditional Branching (if / else)' },
+              { ar: 'تعبير منطقي', fr: 'Expression booléenne', en: 'Boolean Expression' },
+              { ar: 'تقييم حالة', fr: 'Évaluation d’état', en: 'State Evaluation' }
+            ],
+            explanation: [
+              'في الخوارزميات نحتاج غالباً لتوجيه المسار حسب شرط: مثلاً هل العدد زوجي أم فردي؟ أو هل الرصيد كافٍ؟',
+              'استخدام الشروط الواضحة يمنع الحالات غير المتوقعة.'
+            ],
+            syntax: `let n = 8;
+if (n % 2 === 0) {
+  console.log("زوجي");
+} else {
+  console.log("فردي");
+}`,
+            mission: 'اكتب منطقاً شرطياً (if ... else) يختبر قيمة ويطبع نتيجة واضحة.',
+            hint: 'استخدم if و else مع مقارنة منطقية واطبع النتيجة.',
+            starterCode: `let temp = 32;
+// اكتب شرط if / else هنا
+`,
+            solutionCode: `let temp = 32;
+if (temp >= 30) {
+  console.log("الطقس حار");
+} else {
+  console.log("الطقس معتدل");
+}`,
+            validate: (code, output) => {
+              const hasCond = /\bif\b/.test(code) && /\belse\b/.test(code);
+              const hasOut = /(console\.log|print)\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasCond || !hasOut) return { ok: false, message: 'استخدم شرط if و else واطبع النتيجة.' };
+              return { ok: true, message: 'رائع! أتقنت التفرع الشرطي في الخوارزميات.' };
+            }
+          },
+          {
+            id: 'algo-3',
+            levelNumber: 3,
+            title: 'التكرار والعدادات والمجاميع',
+            difficulty: 'medium',
+            xp: 115,
+            terms: [
+              { ar: 'تراكم / جمع تراكمي', fr: 'Cumul', en: 'Accumulation' },
+              { ar: 'عداد', fr: 'Compteur', en: 'Counter' },
+              { ar: 'تكرار محدود', fr: 'Itération bornée', en: 'Bounded Loop' }
+            ],
+            explanation: [
+              'تُستخدم العدادات والمجاميع التراكمية لحساب عدد العناصر أو مجموعها أثناء المرور على سلسلة أو نطاق.',
+              'نُهيئ المتغير التراكمي بقيمة ابتدائية مثل 0 قبل بدء الحلقة.'
+            ],
+            syntax: `let sum = 0;
+for (let i = 1; i <= 5; i++) {
+  sum += i;
+}
+console.log(sum);`,
+            mission: 'استخدم حلقة لحساب مجموع أو عدّ عناصر واطبع النتيجة.',
+            hint: 'عرّف متغيراً يبدأ بـ 0، حدّثه داخل حلقة for أو while، ثم اطبعه.',
+            starterCode: `let count = 0;
+for (let i = 1; i <= 5; i++) {
+  // حدّث count هنا
+}
+console.log("العدد:", count);`,
+            solutionCode: `let count = 0;
+for (let i = 1; i <= 5; i++) {
+  count += 1;
+}
+console.log("العدد:", count);`,
+            validate: (code, output) => {
+              const hasLoop = /\b(for|while)\b/.test(code);
+              const hasOut = /(console\.log|print)\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasLoop || !hasOut) return { ok: false, message: 'استخدم حلقة (for أو while) واطبع النتيجة.' };
+              return { ok: true, message: 'ممتاز! العدادات والمجاميع التراكمية أساس كثير من الخوارزميات.' };
+            }
+          },
+          {
+            id: 'algo-4',
+            levelNumber: 4,
+            title: 'البحث الخطي والبحث عن القيمة الكبرى والصغرى',
+            difficulty: 'medium',
+            xp: 130,
+            terms: [
+              { ar: 'بحث خطي', fr: 'Recherche linéaire', en: 'Linear Search' },
+              { ar: 'القيمة الكبرى', fr: 'Maximum', en: 'Maximum (Max)' },
+              { ar: 'مرور على مصفوفة', fr: 'Parcours de tableau', en: 'Array Traversal' }
+            ],
+            explanation: [
+              'لإيجاد أكبر عنصر في مصفوفة نفترض أن العنصر الأول هو الأكبر مؤقتاً، ثم نقارن باقي العناصر به ونحدّث الأكبر إذا وجدنا قيمة أكبر.',
+              'البحث الخطي يفحص العناصر واحداً تلو الآخر حتى يجد الهدف أو ينتهي.'
+            ],
+            syntax: `const arr = [12, 45, 7, 89, 23];
+let maxVal = arr[0];
+for (const val of arr) {
+  if (val > maxVal) maxVal = val;
+}
+console.log(maxVal);`,
+            mission: 'اكتب خوارزمية تجد أكبر قيمة (أو تبحث عن عنصر) في مصفوفة وتطبع النتيجة.',
+            hint: 'ابدأ بـ maxVal = arr[0] وقارن العناصر داخل حلقة.',
+            starterCode: `const numbers = [14, 67, 29, 91, 43];
+let max = numbers[0];
+// ابحث عن أكبر قيمة واطبعها
+`,
+            solutionCode: `const numbers = [14, 67, 29, 91, 43];
+let max = numbers[0];
+for (const n of numbers) {
+  if (n > max) {
+    max = n;
+  }
+}
+console.log("أكبر قيمة:", max);`,
+            validate: (code, output) => {
+              const hasLoop = /\b(for|while)\b/.test(code);
+              const hasCond = /\bif\b/.test(code);
+              const hasOut = /(console\.log|print)\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasLoop || !hasCond || !hasOut) return { ok: false, message: 'استخدم حلقة وشرط مقارنة واطبع النتيجة.' };
+              return { ok: true, message: 'رائع! أتقنت إيجاد القيمة الكبرى والمرور على العناصر.' };
+            }
+          },
+          {
+            id: 'algo-5',
+            levelNumber: 5,
+            title: 'الترتيب والمنطق الحسابي',
+            difficulty: 'medium',
+            xp: 140,
+            terms: [
+              { ar: 'فرز / ترتيب', fr: 'Tri', en: 'Sorting' },
+              { ar: 'تبديل قيمتين', fr: 'Échange de valeurs', en: 'Swap' },
+              { ar: 'باقي القسمة', fr: 'Modulo', en: 'Modulo (%)' }
+            ],
+            explanation: [
+              'ترتيب البيانات (تصاعدياً أو تنازلياً) يساعد على البحث السريع وعرض النتائج بشكل منظم.',
+              'يمكن ترتيب المصفوفات أو تطبيق منطق حسابي مثل عكس قيمة أو اختبار أولية أو ترتيب عناصر.'
+            ],
+            syntax: `const scores = [50, 10, 30, 20];
+scores.sort((a, b) => a - b);
+console.log(scores);`,
+            mission: 'رتّب مصفوفة تصاعدياً أو تنازلياً (أو نفّذ منطق ترتيب/تبديل) واطبع النتيجة.',
+            hint: 'استخدم sort((a, b) => a - b) أو منطق ترتيب واطبع النتيجة.',
+            starterCode: `const scores = [40, 10, 30, 20];
+// رتب المصفوفة واطبعها
+`,
+            solutionCode: `const scores = [40, 10, 30, 20];
+const sorted = [...scores].sort((a, b) => a - b);
+console.log("الترتيب التصاعدي:", sorted);`,
+            validate: (code, output) => {
+              const hasSortOrSwap = /\bsort\b|\bswap\b|temp/i.test(code);
+              const hasOut = /(console\.log|print)\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasSortOrSwap || !hasOut) return { ok: false, message: 'طبّق ترتيب المصفوفة (مثل sort) واطبع النتيجة.' };
+              return { ok: true, message: 'ممتاز! الترتيب والمنطق الحسابي مهارة جوهرية في البرمجة.' };
+            }
+          },
+          {
+            id: 'algo-6',
+            levelNumber: 6,
+            title: 'التعقيد الزمني والمنطق المركب',
+            difficulty: 'hard',
+            xp: 175,
+            terms: [
+              { ar: 'التعقيد الزمني', fr: 'Complexité temporelle', en: 'Time Complexity (Big O)' },
+              { ar: 'زمن خطي', fr: 'Complexité linéaire', en: 'O(n)' },
+              { ar: 'شروط مركبة', fr: 'Conditions composées', en: 'Logical AND / OR (&& / ||)' }
+            ],
+            explanation: [
+              'التعقيد الزمني (Big O) يقيس كيف ينمو وقت تنفيذ الخوارزمية مع زيادة حجم المدخلات n.',
+              'المرور على عنصر واحد مرة واحدة في حلقة بسيطة يمثل غالباً تعقيداً خطياً O(n) وهو أسرع بكثير من الحلقات المتداخلة O(n²).'
+            ],
+            syntax: `// مرور واحد O(n) لحساب عدد العناصر الموجبة والزوجية
+const items = [-3, 4, 8, -1, 6];
+let evenPositive = 0;
+for (const x of items) {
+  if (x > 0 && x % 2 === 0) evenPositive++;
+}
+console.log(evenPositive);`,
+            mission: 'اكتب خوارزمية بمرور واحد O(n) تستخدم شرطاً مركباً (&& أو ||) وتطبع النتيجة.',
+            hint: 'استخدم حلقة واحدة مع شرط مركب مثل (x > 0 && x % 2 === 0) واطبع النتيجة.',
+            starterCode: `const nums = [-5, 2, 7, 10, -2, 8];
+let matched = 0;
+// استخدم شرطاً مركباً داخل حلقة واحدة
+console.log(matched);`,
+            solutionCode: `const nums = [-5, 2, 7, 10, -2, 8];
+let matched = 0;
+for (const n of nums) {
+  if (n > 0 && n % 2 === 0) {
+    matched++;
+  }
+}
+console.log("عدد الأعداد الزوجية الموجبة:", matched);`,
+            validate: (code, output) => {
+              const hasCompound = /&&|\|\|/.test(code);
+              const hasLoop = /\b(for|while)\b/.test(code);
+              const hasOut = /(console\.log|print)\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasCompound || !hasLoop || !hasOut) return { ok: false, message: 'استخدم حلقة وشرطاً مركباً (&& أو ||) واطبع النتيجة.' };
+              return { ok: true, message: 'رائع! أتقنت المنطق المركب وفهم كفاءة الخوارزميات.' };
+            }
+          },
+          {
+            id: 'algo-7',
+            levelNumber: 7,
+            title: 'خوارزميات متقدمة وحل المشكلات خطوة بخطوة',
+            difficulty: 'hard',
+            xp: 220,
+            terms: [
+              { ar: 'تقسيم المشكلة', fr: 'Décomposition', en: 'Problem Decomposition' },
+              { ar: 'دالة خوارزمية', fr: 'Fonction algorithmique', en: 'Algorithmic Function' },
+              { ar: 'حالات حدية', fr: 'Cas limites', en: 'Edge Cases' }
+            ],
+            explanation: [
+              'عند مواجهة مسألة معقدة، قسّمها إلى خطوات صغيرة واضحة، تحقق من الحالات الحدية (مثل المصفوفة الفارغة أو الأرقام السالبة)، ثم اختبر النتيجة.',
+              'هذه الطريقة هي سر التفوق في حل المشكلات البرمجية والمقابلات التقنية.'
+            ],
+            syntax: `function sumEven(arr) {
+  if (!Array.isArray(arr) || arr.length === 0) return 0;
+  let total = 0;
+  for (const n of arr) {
+    if (n % 2 === 0) total += n;
+  }
+  return total;
+}
+console.log(sumEven([1, 2, 3, 4, 5, 6]));`,
+            mission: 'عرّف دالة تقوم بمعالجة خوارزمية (مثل جمع أو عدّ أو بحث) وتتعامل مع شرط، ثم استدعِها واطبع النتيجة.',
+            hint: 'اكتب دالة function ...(...) { ... } مع شرط وحلقة ثم استدعِها واطبع النتيجة.',
+            starterCode: `function countGreaterThan(arr, threshold) {
+  let count = 0;
+  for (const item of arr) {
+    if (item > threshold) count++;
+  }
+  return count;
+}
+
+console.log(countGreaterThan([10, 25, 5, 40, 15], 12));`,
+            solutionCode: `function countGreaterThan(arr, threshold) {
+  if (!Array.isArray(arr)) return 0;
+  let count = 0;
+  for (const item of arr) {
+    if (item > threshold) count++;
+  }
+  return count;
+}
+
+console.log("عدد العناصر الأكبر من 12:", countGreaterThan([10, 25, 5, 40, 15], 12));`,
+            validate: (code, output) => {
+              const hasFn = /\bfunction\b|\bdef\b|=>/.test(code);
+              const hasCond = /\bif\b/.test(code);
+              const hasOut = /(console\.log|print)\s*\(/.test(code) && output.trim().length > 0;
+              if (!hasFn || !hasCond || !hasOut) return { ok: false, message: 'عرّف دالة تحتوي على شرط واطبع نتيجة استدعائها.' };
+              return { ok: true, message: 'مذهل! أتممت جميع المراحل الـ 35 في الأكاديمية بنجاح مبهر!' };
+            }
+          }
+        ]
+      }
+    ];
+
+    // =========================================================================
+    // 2. شارات الإتقان والرسائل التحفيزية المستمرة
+    // =========================================================================
+    const BADGES = [
+      { id: 'first-step', title: 'الخطوة الأولى', desc: 'إتمام أول مرحلة في أي مسار', icon: '🌱', check: (st) => st.completedLevels.length >= 1 },
+      { id: 'five-stages', title: 'مثابر نشيط', desc: 'إتمام 5 مراحل بنجاح', icon: '⚡', check: (st) => st.completedLevels.length >= 5 },
+      { id: 'xp-500', title: 'صائد الخبرة', desc: 'جمع 500 نقطة XP أو أكثر', icon: '⭐', check: (st) => st.xp >= 500 },
+      { id: 'streak-3', title: 'سلسلة مشتعلة', desc: 'تحقيق سلسلة نجاحات متتالية من 3 مراحل', icon: '🔥', check: (st) => st.streak >= 3 },
+      { id: 'track-master', title: 'متقن المسار', desc: 'إتمام جميع المراحل الـ 7 لمسار كامل', icon: '🏆', check: (st) => CURRICULUM.some(t => t.levels.every(l => st.completedLevels.includes(l.id))) },
+      { id: 'grand-master', title: 'بطل الأكاديمية الشامل', desc: 'إتمام جميع المراحل الـ 35 في كافة المسارات', icon: '👑', check: (st) => st.completedLevels.length >= 35 }
+    ];
+
+    const MOTIVATION_QUOTES = {
+      general: [
+        'كل سطر تكتبه اليوم هو لبنة حقيقية في مشروعك القادم؛ استمر بثقة ولا تتوقف! 🚀',
+        'البرمجة تُتقن بالممارسة لا بالمشاهدة فقط — اكتب، جرّب، وعدّل، وستفهم أسرع! 💻',
+        'حتى أصعب المراحل بدأت بخطوة سهلة؛ خذ نفساً عميقاً وابدأ بالخطوة التالية! 🌟',
+        'الاستمرارية اليومية ولو لوقت قصير تصنع فرقاً كبيراً على المدى القريب! 🔥',
+        'كل خطأ يظهر لك هو دليل على أنك تحاول وتتعلم — صلح الخطأ وكمل طريقك! 🛠️'
+      ],
+      trackSwitch: [
+        'انتقال رائع إلى مسار جديد! اربط المفاهيم ببعضها وستجد أن الفكرة تتضح بسرعة! 🎯',
+        'مسار جديد وفرصة جديدة لتقوية مهاراتك خطوة بخطوة من السهل إلى الصعب! ✨'
+      ],
+      stageChange: [
+        'مرحلة جديدة بانتظارك! اقرأ القاعدة بتركيز ثم طبّق التحدي بيدك! 📌',
+        'خطوة جديدة نحو الإتقان! ركّز على الصيغة القياسية ولا تتردد في طلب التلميح! 💡'
+      ],
+      success: [
+        'أحسنت صنعاً! إنجاز رائع يرفع مستواك ويزيد من رصيد خبرتك! 🎉',
+        'بطل حقيقي! أتممت التحدي بنجاح — هل أنت مستعد للمرحلة التالية؟ 🏆',
+        'ممتاز جداً! كل مرحلة تنجزها تثبت أنك قادر على إتقان البرمجة من الصفر! 🔥'
+      ],
+      retry: [
+        'لا بأس أبداً! راجع المطلوب في التحدي أو استخدم زر "تلميح" وستصل للحل الصحيح! 💪',
+        'الأخطاء جزء طبيعي جداً في طريق كل مبرمج؛ عدّل السطر الناقص وأعد التشغيل! 🔧'
+      ],
+      hint: [
+        'التلميح الذكي يساعدك على رؤية الفكرة — الآن طبّقها بنفسك في المحرر! 💡'
+      ],
+      resume: [
+        'مرحباً بعودتك! تقدمك محفوظ بالكامل، نواصل من آخر مرحلة وصلت إليها! 📌'
+      ]
+    };
+
+    function randomFrom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function setCoachMessage(msg) {
+      const el = document.getElementById('coach-message');
+      if (el) el.textContent = msg;
+    }
+
+    // =========================================================================
+    // 3. إدارة الحالة والحفظ التلقائي والاستئناف والنسخ الاحتياطي JSON
+    // =========================================================================
+    const STORAGE_KEY = 'zero_academy_v3_state';
+    const LEGACY_KEYS = ['zero_academy_full_v2', 'zero_academy_full_v1', 'zero_academy_progress_v1'];
+
+    function createDefaultState() {
+      return {
+        activeTrackId: 'html',
+        activeLevelByTrack: {
+          html: 'html-1',
+          css: 'css-1',
+          python: 'py-1',
+          poo: 'poo-1',
+          algo: 'algo-1'
+        },
+        completedLevels: [],
+        xp: 0,
+        streak: 0,
+        draftsByLevel: {},
+        darkMode: false,
+        lastSavedAt: null,
+        hasInteracted: false
+      };
+    }
+
+    function sanitizeState(rawObj) {
+      const base = createDefaultState();
+      if (!rawObj || typeof rawObj !== 'object') return base;
+
+      const validTrackIds = new Set(CURRICULUM.map(t => t.id));
+      const allLevelIds = new Set(CURRICULUM.flatMap(t => t.levels.map(l => l.id)));
+
+      const activeTrackId = validTrackIds.has(rawObj.activeTrackId) ? rawObj.activeTrackId : base.activeTrackId;
+      const activeLevelByTrack = { ...base.activeLevelByTrack };
+
+      if (rawObj.activeLevelByTrack && typeof rawObj.activeLevelByTrack === 'object') {
+        CURRICULUM.forEach(track => {
+          const candidate = rawObj.activeLevelByTrack[track.id];
+          if (typeof candidate === 'string' && track.levels.some(l => l.id === candidate)) {
+            activeLevelByTrack[track.id] = candidate;
+          }
+        });
+      }
+
+      const completedLevels = Array.isArray(rawObj.completedLevels)
+        ? [...new Set(rawObj.completedLevels.filter(id => typeof id === 'string' && allLevelIds.has(id)))]
+        : [];
+
+      const draftsByLevel = {};
+      if (rawObj.draftsByLevel && typeof rawObj.draftsByLevel === 'object') {
+        Object.entries(rawObj.draftsByLevel).forEach(([k, v]) => {
+          if (allLevelIds.has(k) && typeof v === 'string') {
+            draftsByLevel[k] = v;
+          }
+        });
+      }
+
+      return {
+        activeTrackId,
+        activeLevelByTrack,
+        completedLevels,
+        xp: Math.max(0, Number(rawObj.xp) || 0),
+        streak: Math.max(0, Number(rawObj.streak) || 0),
+        draftsByLevel,
+        darkMode: Boolean(rawObj.darkMode),
+        lastSavedAt: typeof rawObj.lastSavedAt === 'string' ? rawObj.lastSavedAt : null,
+        hasInteracted: Boolean(rawObj.hasInteracted)
+      };
+    }
+
+    function loadSavedState() {
+      try {
+        let raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          for (const key of LEGACY_KEYS) {
+            const old = localStorage.getItem(key);
+            if (old) {
+              raw = old;
+              break;
+            }
+          }
+        }
+        if (!raw) return createDefaultState();
+        return sanitizeState(JSON.parse(raw));
+      } catch (err) {
+        return createDefaultState();
+      }
+    }
+
+    let appState = loadSavedState();
+    let autosaveTimeout = null;
+
+    function pulseAutosaveBadge() {
+      const dot = document.getElementById('autosave-dot');
+      const label = document.getElementById('autosave-label');
+      if (!dot || !label) return;
+      dot.className = 'w-2 h-2 rounded-full bg-emerald-300 animate-ping';
+      label.textContent = 'تم الحفظ ✓';
+      if (autosaveTimeout) clearTimeout(autosaveTimeout);
+      autosaveTimeout = setTimeout(() => {
+        dot.className = 'w-2 h-2 rounded-full bg-emerald-400';
+        label.textContent = 'محفوظ تلقائياً';
+      }, 1400);
+    }
+
+    function persistState() {
+      try {
+        appState.lastSavedAt = new Date().toISOString();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        pulseAutosaveBadge();
+      } catch (err) {
+        const label = document.getElementById('autosave-label');
+        if (label) label.textContent = 'تعذر الحفظ';
+      }
+    }
+
+    function formatTimeLabel(iso) {
+      if (!iso) return '';
+      try {
+        const d = new Date(iso);
+        if (Number.isNaN(d.getTime())) return '';
+        return `آخر حفظ: ${d.toLocaleTimeString('ar', { hour: '2-digit', minute: '2-digit' })}`;
+      } catch (e) {
+        return '';
+      }
+    }
+
+    function checkAndShowResumeBanner() {
+      const banner = document.getElementById('resume-banner');
+      if (!banner) return;
+
+      const meaningfulProgress = appState.hasInteracted && (
+        appState.completedLevels.length > 0 ||
+        appState.xp > 0 ||
+        appState.activeTrackId !== 'html' ||
+        Object.values(appState.activeLevelByTrack).some(id => !id.endsWith('-1')) ||
+        Object.keys(appState.draftsByLevel).length > 0
+      );
+
+      if (!meaningfulProgress) {
+        banner.classList.add('hidden');
+        return;
+      }
+
+      const track = getCurrentTrack();
+      const level = getCurrentLevel(track);
+      const diffMeta = DIFFICULTY_META[level.difficulty];
+      const timeText = formatTimeLabel(appState.lastSavedAt);
+
+      const badge = document.getElementById('resume-difficulty-badge');
+      badge.textContent = `المستوى: ${diffMeta.label}`;
+      badge.className = `text-[11px] font-extrabold px-2 py-0.5 rounded-full ${diffMeta.classes}`;
+
+      document.getElementById('resume-details').textContent =
+        `المسار: ${track.name} • المرحلة ${level.levelNumber}/7 (${level.title}) • رصيدك: ${appState.xp} XP${timeText ? ' • ' + timeText : ''}`;
+
+      setCoachMessage(randomFrom(MOTIVATION_QUOTES.resume));
+      banner.classList.remove('hidden');
+    }
+
+    function exportBackupFile() {
+      try {
+        persistState();
+        const blob = new Blob([JSON.stringify(appState, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const dateStr = new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.download = `zero-academy-backup-${dateStr}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('تم تصدير نسخة احتياطية من تقدمك بنجاح.', 'success');
+      } catch (err) {
+        showToast('تعذر إنشاء ملف النسخة الاحتياطية.', 'error');
+      }
+    }
+
+    function importBackupFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        try {
+          const parsed = JSON.parse(String(ev.target?.result || '{}'));
+          appState = sanitizeState({ ...parsed, hasInteracted: true });
+          persistState();
+          renderAll();
+          setCoachMessage('تمت استعادة تقدمك المحفوظ بنجاح! هيا نواصل التفوق 🚀');
+          showToast('تمت استعادة النسخة الاحتياطية وتحديث مرحلتك ونقاطك!', 'success');
+        } catch (err) {
+          showToast('الملف غير صالح، يرجى اختيار ملف JSON صحيح.', 'error');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // =========================================================================
+    // 4. محاكي التشغيل والتنفيذ لـ HTML/CSS و Python/POO و Algorithme
+    // =========================================================================
+    function simulatePythonAndPoo(code) {
+      const lines = code.split('\n');
+      const logs = [];
+      const vars = {};
+      const classes = {};
+      const instances = {};
+
+      // استخراج تعريفات الكلاسات والدوال البسيطة
+      let currentClass = null;
+      let currentMethod = null;
+
+      for (let i = 0; i < lines.length; i++) {
+        const rawLine = lines[i];
+        const trimmed = rawLine.trim();
+        if (!trimmed || trimmed.startsWith('#')) continue;
+
+        const classMatch = trimmed.match(/^class\s+([A-Za-z_][A-Za-z0-9_]*)\s*(?:\(([^)]*)\))?\s*:/);
+        if (classMatch) {
+          currentClass = classMatch[1];
+          currentMethod = null;
+          classes[currentClass] = {
+            parent: (classMatch[2] || '').trim(),
+            attrs: {},
+            methods: {}
+          };
+          continue;
+        }
+
+        const indent = rawLine.search(/\S/);
+        if (currentClass && indent === 0 && !trimmed.startsWith('class ')) {
+          currentClass = null;
+          currentMethod = null;
+        }
+
+        if (currentClass) {
+          const defMatch = trimmed.match(/^def\s+([A-Za-z_][A-Za-z0-9_]*)\s*\(([^)]*)\)\s*:/);
+          if (defMatch) {
+            currentMethod = defMatch[1];
+            const params = defMatch[2].split(',').map(p => p.trim()).filter(Boolean);
+            classes[currentClass].methods[currentMethod] = { params, bodyLines: [] };
+            continue;
+          }
+
+          if (currentMethod && indent >= 4) {
+            classes[currentClass].methods[currentMethod].bodyLines.push(rawLine.slice(4));
+            continue;
+          }
+
+          if (!currentMethod && indent >= 2) {
+            const attrMatch = trimmed.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.+)$/);
+            if (attrMatch) {
+              classes[currentClass].attrs[attrMatch[1]] = evalSimpleLiteral(attrMatch[2].trim(), vars);
+              continue;
+            }
+          }
+        }
+      }
+
+      function evalSimpleLiteral(expr, scope) {
+        if (!expr) return '';
+        if ((expr.startsWith('"') && expr.endsWith('"')) || (expr.startsWith("'") && expr.endsWith("'"))) {
+          return expr.slice(1, -1);
+        }
+        if (/^-?\d+(\.\d+)?$/.test(expr)) {
+          return Number(expr);
+        }
+        if (expr === 'True') return true;
+        if (expr === 'False') return false;
+        if (expr.startsWith('[') && expr.endsWith(']')) {
+          const inner = expr.slice(1, -1).trim();
+          if (!inner) return [];
+          return inner.split(',').map(item => evalSimpleLiteral(item.trim(), scope));
+        }
+        if (Object.prototype.hasOwnProperty.call(scope, expr)) {
+          return scope[expr];
+        }
+        return expr;
+      }
+
+      function resolveReturnFromMethod(clsName, methodName, args) {
+        const cls = classes[clsName];
+        if (!cls) return '';
+        const method = cls.methods[methodName];
+        if (!method) {
+          if (cls.parent && classes[cls.parent]) {
+            return resolveReturnFromMethod(cls.parent, methodName, args);
+          }
+          return '';
+        }
+
+        const localVars = { ...cls.attrs };
+        const paramNames = method.params.filter(p => p !== 'self');
+        paramNames.forEach((pName, idx) => {
+          localVars[pName] = args[idx];
+        });
+
+        for (const bLine of method.bodyLines) {
+          const t = bLine.trim();
+          if (!t || t.startsWith('#')) continue;
+          const attrAssign = t.match(/^self\.(_*[A-Za-z0-9_]+)\s*=\s*(.+)$/);
+          if (attrAssign) {
+            const attrKey = attrAssign[1];
+            const valExpr = attrAssign[2].trim();
+            if (Object.prototype.hasOwnProperty.call(localVars, valExpr)) {
+              localVars[attrKey] = localVars[valExpr];
+            } else {
+              localVars[attrKey] = evalSimpleLiteral(valExpr, localVars);
+            }
+            continue;
+          }
+
+          const retMatch = t.match(/^return\s+(.+)$/);
+          if (retMatch) {
+            let retExpr = retMatch[1].trim();
+            // f-string بسيط
+            if (/^f["']/.test(retExpr)) {
+              let fStr = retExpr.slice(2, -1);
+              fStr = fStr.replace(/\{([^}]+)\}/g, (_, keyExpr) => {
+                const k = keyExpr.trim().replace(/^self\./, '');
+                return Object.prototype.hasOwnProperty.call(localVars, k) ? String(localVars[k]) : '';
+              });
+              return fStr;
+            }
+            // تعبير ضرب مساحة مستطيل مثل self.width * self.height
+            const multMatch = retExpr.match(/^self\.([A-Za-z0-9_]+)\s*\*\s*self\.([A-Za-z0-9_]+)$/);
+            if (multMatch) {
+              return Number(localVars[multMatch[1]] || 0) * Number(localVars[multMatch[2]] || 0);
+            }
+            // جمع رقمي مثل (self._celsius * 9 / 5) + 32
+            const tempMatch = retExpr.match(/^\(self\.([A-Za-z0-9_]+)\s*\*\s*9\s*\/\s*5\)\s*\+\s*32$/);
+            if (tempMatch) {
+              return (Number(localVars[tempMatch[1]] || 0) * 9) / 5 + 32;
+            }
+            // جمع نصوص بـ +
+            if (retExpr.includes('+')) {
+              const parts = retExpr.split('+').map(p => p.trim());
+              return parts.map(part => {
+                if (part.startsWith('self.')) {
+                  const key = part.replace(/^self\./, '');
+                  return localVars[key] ?? '';
+                }
+                return evalSimpleLiteral(part, localVars);
+              }).join('');
+            }
+            if (retExpr.startsWith('self.')) {
+              const key = retExpr.replace(/^self\./, '');
+              return localVars[key] ?? '';
+            }
+            return evalSimpleLiteral(retExpr, localVars);
+          }
+        }
+        return '';
+      }
+
+      // تنفيذ السطور العلوية والطباعة
+      let insideBlock = false;
+      let blockIndent = 0;
+
+      for (let i = 0; i < lines.length; i++) {
+        const raw = lines[i];
+        const t = raw.trim();
+        if (!t || t.startsWith('#')) continue;
+        const ind = raw.search(/\S/);
+
+        if (insideBlock && ind > blockIndent) {
+          // داخل كتلة شرط أو حلقة أو try/except
+          const pInBlock = t.match(/^print\s*\((.*)\)$/);
+          if (pInBlock) {
+            logs.push(evalPrintArg(pInBlock[1], vars, instances));
+          }
+          const addAssign = t.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*\+=\s*(.+)$/);
+          if (addAssign) {
+            const vName = addAssign[1];
+            const inc = evalSimpleLiteral(addAssign[2].trim(), vars);
+            vars[vName] = (Number(vars[vName]) || 0) + (Number(inc) || 0);
+          }
+          continue;
+        } else {
+          insideBlock = false;
+        }
+
+        if (/^(class |def |if |elif |else:|for |while |try:|except\b)/.test(t)) {
+          if (t.endsWith(':')) {
+            insideBlock = true;
+            blockIndent = ind;
+          }
+          // معالجة try مع ZeroDivisionError تلقائياً عند وجود 10 / 0
+          if (t === 'try:' && lines[i + 1] && /\/\s*0\b/.test(lines[i + 1])) {
+            for (let j = i + 1; j < lines.length; j++) {
+              const exLine = lines[j].trim();
+              if (exLine.startsWith('except')) {
+                for (let k = j + 1; k < lines.length; k++) {
+                  const afterEx = lines[k].trim();
+                  if (!afterEx || afterEx.startsWith('#')) continue;
+                  const exPrint = afterEx.match(/^print\s*\((.*)\)$/);
+                  if (exPrint) {
+                    logs.push(evalPrintArg(exPrint[1], vars, instances));
+                  }
+                  break;
+                }
+                break;
+              }
+            }
+            insideBlock = true;
+            blockIndent = ind;
+          }
+          continue;
+        }
+
+        // إنشاء كائن من كلاس: obj = ClassName(args)
+        const instMatch = t.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*([A-Z][A-Za-z0-9_]*)\s*\(([^)]*)\)$/);
+        if (instMatch) {
+          const objName = instMatch[1];
+          const clsName = instMatch[2];
+          const args = instMatch[3]
+            .split(',')
+            .map(a => a.trim())
+            .filter(Boolean)
+            .map(a => evalSimpleLiteral(a, vars));
+          instances[objName] = { clsName, args };
+          vars[objName] = `<${clsName} object>`;
+          continue;
+        }
+
+        // استدعاء دالة على كائن: obj.method(args)
+        const objCallMatch = t.match(/^([A-Za-z_][A-Za-z0-9_]*)\.([A-Za-z_][A-Za-z0-9_]*)\s*\(([^)]*)\)$/);
+        if (objCallMatch) {
+          const objName = objCallMatch[1];
+          const methodName = objCallMatch[2];
+          const args = objCallMatch[3]
+            .split(',')
+            .map(a => a.trim())
+            .filter(Boolean)
+            .map(a => evalSimpleLiteral(a, vars));
+          if (instances[objName]) {
+            resolveReturnFromMethod(instances[objName].clsName, methodName, args);
+          }
+          continue;
+        }
+
+        // إسناد متغير عادي
+        const assignMatch = t.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.+)$/);
+        if (assignMatch) {
+          const name = assignMatch[1];
+          const rhs = assignMatch[2].trim();
+          // List comprehension بسيط: [n for n in nums if n >= 8]
+          const compMatch = rhs.match(/^\[([^\]]+)\s+for\s+([A-Za-z_][A-Za-z0-9_]*)\s+in\s+([A-Za-z_][A-Za-z0-9_]*)(?:\s+if\s+(.+))?\]$/);
+          if (compMatch && Array.isArray(vars[compMatch[3]])) {
+            const expr = compMatch[1].trim();
+            const itemVar = compMatch[2];
+            const srcArr = vars[compMatch[3]];
+            const condStr = compMatch[4] ? compMatch[4].trim() : null;
+            const outArr = [];
+            for (const item of srcArr) {
+              let condOk = true;
+              if (condStr) {
+                const cmpMatch = condStr.match(new RegExp(`^${itemVar}\\s*(>=|<=|>|<|==|!=)\\s*(\\d+)$`));
+                if (cmpMatch) {
+                  const numVal = Number(item);
+                  const targetNum = Number(cmpMatch[2]);
+                  const op = cmpMatch[1];
+                  if (op === '>=') condOk = numVal >= targetNum;
+                  else if (op === '<=') condOk = numVal <= targetNum;
+                  else if (op === '>') condOk = numVal > targetNum;
+                  else if (op === '<') condOk = numVal < targetNum;
+                  else if (op === '==') condOk = numVal == targetNum;
+                  else if (op === '!=') condOk = numVal != targetNum;
+                }
+              }
+              if (condOk) {
+                outArr.push(expr === itemVar ? item : evalSimpleLiteral(expr, { [itemVar]: item }));
+              }
+            }
+            vars[name] = outArr;
+            continue;
+          }
+          vars[name] = evalSimpleLiteral(rhs, vars);
+          continue;
+        }
+
+        // print(...)
+        const printMatch = t.match(/^print\s*\((.*)\)$/);
+        if (printMatch) {
+          logs.push(evalPrintArg(printMatch[1], vars, instances));
+        }
+      }
+
+      function evalPrintArg(argStr, scope, instMap) {
+        const trimmedArg = argStr.trim();
+        if (!trimmedArg) return '';
+
+        // استدعاء دالة على كائن داخل print: p1.describe() أو r.area
+        const dotCall = trimmedArg.match(/^([A-Za-z_][A-Za-z0-9_]*)\.([A-Za-z_][A-Za-z0-9_]*)(?:\(([^)]*)\))?$/);
+        if (dotCall && instMap[dotCall[1]]) {
+          const inst = instMap[dotCall[1]];
+          const cls = classes[inst.clsName];
+          const methodName = dotCall[2];
+          if (cls && cls.attrs && Object.prototype.hasOwnProperty.call(cls.attrs, methodName)) {
+            return String(cls.attrs[methodName]);
+          }
+          const callArgs = (dotCall[3] || '')
+            .split(',')
+            .map(a => a.trim())
+            .filter(Boolean)
+            .map(a => evalSimpleLiteral(a, scope));
+          const res = resolveReturnFromMethod(inst.clsName, methodName, callArgs);
+          if (res !== '') return String(res);
+          if (methodName === 'area' && inst.args.length >= 2) {
+            return String(Number(inst.args[0]) * Number(inst.args[1]));
+          }
+        }
+
+        // قائمة مفصولة بفواصل داخل print
+        const parts = splitTopLevelCommas(trimmedArg);
+        return parts.map(part => {
+          const p = part.trim();
+          const pDot = p.match(/^([A-Za-z_][A-Za-z0-9_]*)\.([A-Za-z_][A-Za-z0-9_]*)(?:\(([^)]*)\))?$/);
+          if (pDot && instMap[pDot[1]]) {
+            const inst = instMap[pDot[1]];
+            const cls = classes[inst.clsName];
+            if (cls && cls.attrs && Object.prototype.hasOwnProperty.call(cls.attrs, pDot[2])) {
+              return String(cls.attrs[pDot[2]]);
+            }
+            const res = resolveReturnFromMethod(inst.clsName, pDot[2], []);
+            if (res !== '') return String(res);
+            if (pDot[2] === 'area' && inst.args.length >= 2) {
+              return String(Number(inst.args[0]) * Number(inst.args[1]));
+            }
+          }
+          if (Array.isArray(scope[p])) {
+            return `[${scope[p].map(x => typeof x === 'string' ? `'${x}'` : x).join(', ')}]`;
+          }
+          if (Object.prototype.hasOwnProperty.call(scope, p)) {
+            return String(scope[p]);
+          }
+          return String(evalSimpleLiteral(p, scope));
+        }).join(' ');
+      }
+
+      function splitTopLevelCommas(str) {
+        const res = [];
+        let cur = '';
+        let depth = 0;
+        let quote = null;
+        for (let idx = 0; idx < str.length; idx++) {
+          const ch = str[idx];
+          if ((ch === '"' || ch === "'") && str[idx - 1] !== '\\') {
+            quote = quote === ch ? null : ch;
+          } else if (!quote) {
+            if (ch === '(' || ch === '[' || ch === '{') depth++;
+            else if (ch === ')' || ch === ']' || ch === '}') depth--;
+            else if (ch === ',' && depth === 0) {
+              res.push(cur);
+              cur = '';
+              continue;
+            }
+          }
+          cur += ch;
+        }
+        if (cur) res.push(cur);
+        return res;
+      }
+
+      if (logs.length === 0) {
+        if (/\bprint\s*\(/.test(code)) {
+          logs.push('تم تنفيذ الكود بنجاح.');
+        } else {
+          logs.push('(لم يتم استدعاء print() بعد — أضف print(...) لعرض المخرجات)');
+        }
+      }
+
+      return logs.join('\n');
+    }
+
+    function simulateAlgorithmJs(code) {
+      const logs = [];
+      const safeConsole = {
+        log: (...args) => {
+          logs.push(args.map(a => (typeof a === 'object' && a !== null ? JSON.stringify(a) : String(a))).join(' '));
+        }
+      };
+      const safePrint = (...args) => safeConsole.log(...args);
+
+      try {
+        const runnable = new Function('console', 'print', `"use strict";\n${code}`);
+        runnable(safeConsole, safePrint);
+      } catch (err) {
+        // إذا كان الكود مكتوباً بصيغة Python-like في مسار الخوارزميات نمرره للمحاكي البديل
+        return simulatePythonAndPoo(code);
+      }
+
+      return logs.length > 0 ? logs.join('\n') : '(تم التنفيذ — استخدم console.log(...) لطباعة النتيجة)';
+    }
+
+    function executeCurrentStageCode(track, level, code) {
+      if (track.id === 'html' || track.id === 'css') {
+        const previewWrapper = document.getElementById('live-preview-wrapper');
+        const iframe = document.getElementById('live-preview-frame');
+        previewWrapper.classList.remove('hidden');
+        iframe.srcdoc = `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><style>body{font-family:'Cairo',sans-serif;padding:12px;margin:0;}</style></head><body>${code}</body></html>`;
+        const outputText = `تم تحديث المعاينة الحية لمسار ${track.name} بنجاح.`;
+        return outputText;
+      }
+
+      document.getElementById('live-preview-wrapper').classList.add('hidden');
+
+      if (track.id === 'algo') {
+        return simulateAlgorithmJs(code);
+      }
+      return simulatePythonAndPoo(code);
+    }
+
+    // =========================================================================
+    // 5. الواجهة والعرض التفاعلي الكامل
+    // =========================================================================
+    function getCurrentTrack() {
+      return CURRICULUM.find(t => t.id === appState.activeTrackId) || CURRICULUM[0];
+    }
+
+    function getCurrentLevel(track = getCurrentTrack()) {
+      const savedLevelId = appState.activeLevelByTrack[track.id];
+      return track.levels.find(l => l.id === savedLevelId) || track.levels[0];
+    }
+
+    function getRankName(xp) {
+      if (xp >= 2500) return 'أسطورة البرمجة';
+      if (xp >= 1500) return 'مطور متقدم';
+      if (xp >= 700) return 'مُبرمج صاعد';
+      if (xp >= 250) return 'متعلم نشيط';
+      return 'مبتدئ طموح';
+    }
+
+    function applyThemeClass() {
+      const root = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      if (appState.darkMode) {
+        root.classList.add('dark');
+        if (icon) icon.textContent = '☀️';
+      } else {
+        root.classList.remove('dark');
+        if (icon) icon.textContent = '🌙';
+      }
+    }
+
+    function showToast(text, type = 'info') {
+      const banner = document.getElementById('toast-banner');
+      const iconEl = document.getElementById('toast-icon');
+      const textEl = document.getElementById('toast-text');
+      if (!banner || !iconEl || !textEl) return;
+
+      iconEl.textContent = type === 'success' ? '✅' : type === 'error' ? '⚠️' : 'ℹ️';
+      textEl.textContent = text;
+      banner.classList.remove('hidden');
+    }
+
+    function renderHudAndBadges() {
+      document.getElementById('hud-xp').textContent = `${appState.xp} XP`;
+      document.getElementById('hud-rank').textContent = getRankName(appState.xp);
+      document.getElementById('hud-streak').textContent = String(appState.streak);
+
+      const unlockedBadges = BADGES.filter(b => b.check(appState));
+      document.getElementById('hud-badges-count').textContent = `${unlockedBadges.length}/${BADGES.length}`;
+
+      const totalCompleted = appState.completedLevels.length;
+      document.getElementById('global-progress-text').textContent = `${totalCompleted} / 35`;
+      document.getElementById('global-progress-bar').style.width = `${Math.round((totalCompleted / 35) * 100)}%`;
+
+      const badgesGrid = document.getElementById('badges-grid');
+      if (badgesGrid) {
+        badgesGrid.innerHTML = BADGES.map(badge => {
+          const unlocked = badge.check(appState);
+          return `
+            <div class="p-3.5 rounded-xl border ${unlocked
+              ? 'bg-amber-50/80 dark:bg-amber-950/35 border-amber-300 dark:border-amber-700'
+              : 'bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700 opacity-65'
+            } flex items-center gap-3">
+              <div class="text-2xl w-11 h-11 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-2xs shrink-0">
+                ${badge.icon}
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <h4 class="text-sm font-black truncate">${badge.title}</h4>
+                  <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${unlocked
+                    ? 'bg-emerald-600 text-white'
+                    : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300'
+                  }">
+                    ${unlocked ? 'مفتوحة' : 'مقفلة'}
+                  </span>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">${badge.desc}</p>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    function renderTrackTabs() {
+      const container = document.getElementById('track-tabs');
+      container.innerHTML = CURRICULUM.map(track => {
+        const isActive = track.id === appState.activeTrackId;
+        const doneCount = track.levels.filter(l => appState.completedLevels.includes(l.id)).length;
+        const pct = Math.round((doneCount / track.levels.length) * 100);
+
+        return `
+          <button
+            type="button"
+            data-track-id="${track.id}"
+            class="track-tab-btn text-right p-3 rounded-xl border transition flex flex-col justify-between gap-2 ${isActive
+              ? 'bg-slate-900 text-white dark:bg-indigo-600 border-slate-900 dark:border-indigo-500 shadow-sm'
+              : 'bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/70 dark:hover:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100'
+            }"
+          >
+            <div class="flex items-center justify-between gap-2">
+              <span class="flex items-center gap-1.5 font-black text-sm">
+                <span>${track.icon}</span>
+                <span>${track.name}</span>
+              </span>
+              <span class="text-[11px] font-extrabold px-2 py-0.5 rounded-full ${isActive
+                ? 'bg-white/15 text-white'
+                : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200'
+              }">
+                ${doneCount}/7
+              </span>
+            </div>
+            <div class="w-full h-1.5 rounded-full ${isActive ? 'bg-white/20' : 'bg-slate-200 dark:bg-slate-700'} overflow-hidden">
+              <div class="h-full ${isActive ? 'bg-emerald-400' : 'bg-indigo-500'} transition-all duration-300" style="width:${pct}%"></div>
+            </div>
+          </button>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.track-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const trackId = btn.getAttribute('data-track-id');
+          if (!trackId || trackId === appState.activeTrackId) return;
+          appState.activeTrackId = trackId;
+          appState.hasInteracted = true;
+          persistState();
+          setCoachMessage(randomFrom(MOTIVATION_QUOTES.trackSwitch));
+          renderAll();
+        });
+      });
+    }
+
+    function renderLevelsList(track, currentLevel) {
+      document.getElementById('track-header-icon').textContent = track.icon;
+      document.getElementById('track-header-title').textContent = track.name;
+      document.getElementById('track-header-sub').textContent = track.subtitle;
+
+      const doneInTrack = track.levels.filter(l => appState.completedLevels.includes(l.id)).length;
+      document.getElementById('track-completion-badge').textContent = `${doneInTrack} / ${track.levels.length}`;
+
+      const listEl = document.getElementById('levels-list');
+      listEl.innerHTML = track.levels.map(lvl => {
+        const isCurrent = lvl.id === currentLevel.id;
+        const isDone = appState.completedLevels.includes(lvl.id);
+        const diff = DIFFICULTY_META[lvl.difficulty];
+
+        return `
+          <button
+            type="button"
+            data-level-id="${lvl.id}"
+            class="level-item-btn w-full text-right p-3 rounded-xl border transition flex items-center justify-between gap-2 ${isCurrent
+              ? 'bg-indigo-50 dark:bg-indigo-950/60 border-indigo-400 dark:border-indigo-500 shadow-2xs'
+              : 'bg-slate-50/70 hover:bg-slate-100 dark:bg-slate-800/50 dark:hover:bg-slate-800 border-slate-200/80 dark:border-slate-700/70'
+            }"
+          >
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs font-black text-slate-500 dark:text-slate-400">${lvl.levelNumber}.</span>
+                <span class="text-xs sm:text-sm font-extrabold truncate">${lvl.title}</span>
+              </div>
+              <div class="flex items-center gap-1.5 mt-1">
+                <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${diff.classes}">${diff.label}</span>
+                <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400">+${lvl.xp} XP</span>
+              </div>
+            </div>
+            <span class="text-sm font-black shrink-0 ${isDone ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}">
+              ${isDone ? '✓' : '○'}
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      listEl.querySelectorAll('.level-item-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const levelId = btn.getAttribute('data-level-id');
+          if (!levelId) return;
+          appState.activeLevelByTrack[track.id] = levelId;
+          appState.hasInteracted = true;
+          persistState();
+          setCoachMessage(randomFrom(MOTIVATION_QUOTES.stageChange));
+          renderAll();
+        });
+      });
+    }
+
+    function renderStageDetails(track, level) {
+      const diff = DIFFICULTY_META[level.difficulty];
+      const isDone = appState.completedLevels.includes(level.id);
+
+      document.getElementById('stage-number-pill').textContent = `المرحلة ${level.levelNumber} من ${track.levels.length}`;
+      const diffBadge = document.getElementById('stage-difficulty-badge');
+      diffBadge.textContent = `المستوى: ${diff.label}`;
+      diffBadge.className = `px-2.5 py-0.5 rounded-full text-xs font-extrabold ${diff.classes}`;
+
+      document.getElementById('stage-xp-badge').textContent = `+${level.xp} XP`;
+      const donePill = document.getElementById('stage-completed-pill');
+      donePill.classList.toggle('hidden', !isDone);
+
+      document.getElementById('stage-title').textContent = level.title;
+
+      document.getElementById('stage-terms').innerHTML = level.terms.map(t => `
+        <span class="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-bold">
+          <strong class="text-indigo-700 dark:text-indigo-300">${t.ar}</strong>
+          <span class="text-slate-400 mx-1">/</span>
+          <span class="text-slate-700 dark:text-slate-200">${t.fr}</span>
+          <span class="text-slate-400 mx-1">/</span>
+          <span class="text-emerald-700 dark:text-emerald-300 mono-font">${t.en}</span>
+        </span>
+      `).join('');
+
+      document.getElementById('stage-explanation').innerHTML = level.explanation
+        .map(p => `<p>${p}</p>`)
+        .join('');
+
+      document.getElementById('stage-syntax').textContent = level.syntax;
+      document.getElementById('stage-mission').textContent = level.mission;
+
+      // إعداد المحرر والمسودة المحفوظة تلقائياً
+      document.getElementById('editor-lang-tag').textContent = track.editorLang;
+      const editorEl = document.getElementById('code-editor');
+      const savedDraft = appState.draftsByLevel[level.id];
+      editorEl.value = typeof savedDraft === 'string' ? savedDraft : level.starterCode;
+
+      // إخفاء صناديق التلميح والحل والتغذية الراجعة عند تغيير المرحلة
+      document.getElementById('hint-box').classList.add('hidden');
+      document.getElementById('hint-box').textContent = '';
+
+      document.getElementById('solution-box').classList.add('hidden');
+      document.getElementById('solution-code-preview').textContent = level.solutionCode;
+
+      document.getElementById('feedback-box').classList.add('hidden');
+      document.getElementById('feedback-box').textContent = '';
+
+      document.getElementById('console-output').textContent =
+        '// اضغط على "تشغيل وتحقق" لتنفيذ الكود ومشاهدة النتيجة والتحقق من التحدي.';
+      document.getElementById('execution-status').textContent = 'جاهز للتشغيل';
+
+      if (track.id === 'html' || track.id === 'css') {
+        document.getElementById('live-preview-wrapper').classList.remove('hidden');
+        document.getElementById('live-preview-frame').srcdoc =
+          `<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><style>body{font-family:'Cairo',sans-serif;padding:12px;margin:0;}</style></head><body>${editorEl.value}</body></html>`;
+      } else {
+        document.getElementById('live-preview-wrapper').classList.add('hidden');
+      }
+
+      // أزرار السابق والتالي
+      const idx = track.levels.findIndex(l => l.id === level.id);
+      document.getElementById('btn-prev-stage').disabled = idx <= 0;
+      document.getElementById('btn-next-stage').disabled = idx >= track.levels.length - 1;
+    }
+
+    function renderRulesModal() {
+      const query = (document.getElementById('rules-search-input').value || '').trim().toLowerCase();
+      const trackFilter = document.getElementById('rules-track-filter').value;
+      const diffFilter = document.getElementById('rules-difficulty-filter').value;
+
+      const items = [];
+      CURRICULUM.forEach(track => {
+        if (trackFilter !== 'all' && track.id !== trackFilter) return;
+        track.levels.forEach(lvl => {
+          if (diffFilter !== 'all' && lvl.difficulty !== diffFilter) return;
+
+          const termsText = lvl.terms.map(t => `${t.ar} ${t.fr} ${t.en}`).join(' ');
+          const hay = `${track.name} ${lvl.title} ${lvl.explanation.join(' ')} ${lvl.syntax} ${termsText}`.toLowerCase();
+          if (query && !hay.includes(query)) return;
+
+          items.push({ track, lvl });
+        });
+      });
+
+      const container = document.getElementById('rules-list-container');
+      if (items.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 text-sm text-slate-500 dark:text-slate-400 font-bold">
+            لا توجد قواعد مطابقة لبحثك الحالي — جرّب كلمة أخرى أو غيّر الفلتر.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = items.map(({ track, lvl }) => {
+        const diff = DIFFICULTY_META[lvl.difficulty];
+        return `
+          <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700 space-y-2.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-xs font-black px-2.5 py-0.5 rounded-lg bg-slate-900 text-white dark:bg-indigo-600">
+                  ${track.icon} ${track.name} • مرحلة ${lvl.levelNumber}
+                </span>
+                <h4 class="text-sm font-black">${lvl.title}</h4>
+                <span class="text-[11px] font-extrabold px-2 py-0.5 rounded-full ${diff.classes}">${diff.label}</span>
+              </div>
+              <button
+                type="button"
+                data-jump-track="${track.id}"
+                data-jump-level="${lvl.id}"
+                class="jump-to-stage-btn text-xs font-extrabold px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition"
+              >
+                فتح المرحلة ←
+              </button>
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 leading-6">${lvl.explanation[0]}</p>
+            <div class="flex flex-wrap gap-1.5">
+              ${lvl.terms.map(t => `<span class="text-[11px] px-2 py-0.5 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 font-semibold">${t.ar} • ${t.fr} • ${t.en}</span>`).join('')}
+            </div>
+            <pre dir="ltr" class="text-xs leading-6 p-3 rounded-xl bg-slate-950 text-emerald-200 overflow-x-auto whitespace-pre-wrap">${lvl.syntax}</pre>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.jump-to-stage-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tId = btn.getAttribute('data-jump-track');
+          const lId = btn.getAttribute('data-jump-level');
+          if (tId && lId) {
+            appState.activeTrackId = tId;
+            appState.activeLevelByTrack[tId] = lId;
+            appState.hasInteracted = true;
+            persistState();
+            document.getElementById('rules-modal').classList.add('hidden');
+            renderAll();
+          }
+        });
+      });
+    }
+
+    function renderAll() {
+      applyThemeClass();
+      renderHudAndBadges();
+      renderTrackTabs();
+      const track = getCurrentTrack();
+      const level = getCurrentLevel(track);
+      renderLevelsList(track, level);
+      renderStageDetails(track, level);
+    }
+
+    // =========================================================================
+    // 6. ربط الأحداث والتفاعلات
+    // =========================================================================
+    function bindAllEvents() {
+      // حفظ تلقائي لمسودة المحرر أثناء الكتابة
+      document.getElementById('code-editor').addEventListener('input', (e) => {
+        const track = getCurrentTrack();
+        const level = getCurrentLevel(track);
+        appState.draftsByLevel[level.id] = e.target.value;
+        appState.hasInteracted = true;
+        persistState();
+      });
+
+      // زر التشغيل والتحقق
+      document.getElementById('btn-run-check').addEventListener('click', () => {
+        const track = getCurrentTrack();
+        const level = getCurrentLevel(track);
+        const code = document.getElementById('code-editor').value;
+
+        appState.draftsByLevel[level.id] = code;
+        appState.hasInteracted = true;
+
+        const output = executeCurrentStageCode(track, level, code);
+        document.getElementById('console-output').textContent = output;
+        document.getElementById('execution-status').textContent = 'تم التنفيذ';
+
+        const result = level.validate(code, output);
+        const feedbackEl = document.getElementById('feedback-box');
+        feedbackEl.classList.remove('hidden');
+
+        if (result.ok) {
+          const firstTime = !appState.completedLevels.includes(level.id);
+          if (firstTime) {
+            appState.completedLevels.push(level.id);
+            appState.xp += level.xp;
+          }
+          appState.streak += 1;
+          persistState();
+
+          feedbackEl.className = 'rounded-xl p-3.5 border text-xs sm:text-sm font-extrabold leading-6 animate-pop bg-emerald-50 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-700 text-emerald-900 dark:text-emerald-200';
+          feedbackEl.textContent = `🎉 ${result.message} ${firstTime ? `(+${level.xp} XP)` : ''}`;
+          setCoachMessage(randomFrom(MOTIVATION_QUOTES.success));
+          renderHudAndBadges();
+          renderTrackTabs();
+          renderLevelsList(track, level);
+          document.getElementById('stage-completed-pill').classList.remove('hidden');
+        } else {
+          appState.streak = 0;
+          persistState();
+          feedbackEl.className = 'rounded-xl p-3.5 border text-xs sm:text-sm font-bold leading-6 animate-pop bg-rose-50 dark:bg-rose-950/60 border-rose-300 dark:border-rose-700 text-rose-900 dark:text-rose-200';
+          feedbackEl.textContent = `⚠️ ${result.message}`;
+          setCoachMessage(randomFrom(MOTIVATION_QUOTES.retry));
+          renderHudAndBadges();
+        }
+      });
+
+      // زر التلميح
+      document.getElementById('btn-hint').addEventListener('click', () => {
+        const level = getCurrentLevel();
+        const hintBox = document.getElementById('hint-box');
+        hintBox.textContent = `💡 تلميح: ${level.hint}`;
+        hintBox.classList.remove('hidden');
+        setCoachMessage(randomFrom(MOTIVATION_QUOTES.hint));
+      });
+
+      // زر إعادة الكود الأصلي
+      document.getElementById('btn-reset-code').addEventListener('click', () => {
+        const level = getCurrentLevel();
+        document.getElementById('code-editor').value = level.starterCode;
+        appState.draftsByLevel[level.id] = level.starterCode;
+        appState.hasInteracted = true;
+        persistState();
+        document.getElementById('feedback-box').classList.add('hidden');
+        showToast('تمت إعادة الكود الأصلي لهذه المرحلة.', 'info');
+      });
+
+      // زر إظهار الحل النموذجي
+      document.getElementById('btn-solution').addEventListener('click', () => {
+        const box = document.getElementById('solution-box');
+        box.classList.toggle('hidden');
+      });
+
+      // نسخ الحل النموذجي إلى المحرر
+      document.getElementById('btn-apply-solution').addEventListener('click', () => {
+        const level = getCurrentLevel();
+        document.getElementById('code-editor').value = level.solutionCode;
+        appState.draftsByLevel[level.id] = level.solutionCode;
+        appState.hasInteracted = true;
+        persistState();
+        showToast('تم نسخ الحل النموذجي إلى المحرر — جرّب تشغيله الآن!', 'success');
+      });
+
+      // السابق والتالي
+      document.getElementById('btn-prev-stage').addEventListener('click', () => {
+        const track = getCurrentTrack();
+        const level = getCurrentLevel(track);
+        const idx = track.levels.findIndex(l => l.id === level.id);
+        if (idx > 0) {
+          appState.activeLevelByTrack[track.id] = track.levels[idx - 1].id;
+          appState.hasInteracted = true;
+          persistState();
+          setCoachMessage(randomFrom(MOTIVATION_QUOTES.stageChange));
+          renderAll();
+        }
+      });
+
+      document.getElementById('btn-next-stage').addEventListener('click', () => {
+        const track = getCurrentTrack();
+        const level = getCurrentLevel(track);
+        const idx = track.levels.findIndex(l => l.id === level.id);
+        if (idx < track.levels.length - 1) {
+          appState.activeLevelByTrack[track.id] = track.levels[idx + 1].id;
+          appState.hasInteracted = true;
+          persistState();
+          setCoachMessage(randomFrom(MOTIVATION_QUOTES.stageChange));
+          renderAll();
+        }
+      });
+
+      // زر المدرب التحفيزي
+      document.getElementById('btn-next-motivation').addEventListener('click', () => {
+        setCoachMessage(randomFrom(MOTIVATION_QUOTES.general));
+      });
+
+      // بانر استئناف التقدم
+      document.getElementById('btn-resume-stage').addEventListener('click', () => {
+        document.getElementById('resume-banner').classList.add('hidden');
+        document.getElementById('code-editor')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        showToast('أنت الآن في مرحلتك المحفوظة — واصل التقدم!', 'info');
+      });
+
+      document.getElementById('btn-hide-resume').addEventListener('click', () => {
+        document.getElementById('resume-banner').classList.add('hidden');
+      });
+
+      // قاموس القواعد الشامل
+      document.getElementById('btn-open-rules').addEventListener('click', () => {
+        renderRulesModal();
+        document.getElementById('rules-modal').classList.remove('hidden');
+      });
+
+      document.getElementById('btn-close-rules').addEventListener('click', () => {
+        document.getElementById('rules-modal').classList.add('hidden');
+      });
+
+      document.getElementById('rules-search-input').addEventListener('input', renderRulesModal);
+      document.getElementById('rules-track-filter').addEventListener('change', renderRulesModal);
+      document.getElementById('rules-difficulty-filter').addEventListener('change', renderRulesModal);
+
+      // نافذة الشارات
+      document.getElementById('btn-open-badges').addEventListener('click', () => {
+        renderHudAndBadges();
+        document.getElementById('badges-modal').classList.remove('hidden');
+      });
+
+      document.getElementById('btn-close-badges').addEventListener('click', () => {
+        document.getElementById('badges-modal').classList.add('hidden');
+      });
+
+      // تصدير واستيراد JSON
+      document.getElementById('btn-export-json').addEventListener('click', exportBackupFile);
+
+      const importInput = document.getElementById('import-json-input');
+      document.getElementById('btn-import-json').addEventListener('click', () => {
+        importInput.value = '';
+        importInput.click();
+      });
+      importInput.addEventListener('change', (e) => {
+        const file = e.target.files && e.target.files[0];
+        importBackupFile(file);
+      });
+
+      // تبديل الوضع الليلي والنهاري
+      document.getElementById('btn-toggle-theme').addEventListener('click', () => {
+        appState.darkMode = !appState.darkMode;
+        persistState();
+        applyThemeClass();
+      });
+
+      // إعادة الضبط عبر نافذة تأكيد مخصصة
+      document.getElementById('btn-reset-progress').addEventListener('click', () => {
+        document.getElementById('reset-modal').classList.remove('hidden');
+      });
+
+      document.getElementById('btn-cancel-reset').addEventListener('click', () => {
+        document.getElementById('reset-modal').classList.add('hidden');
+      });
+
+      document.getElementById('btn-confirm-reset').addEventListener('click', () => {
+        const keepDark = appState.darkMode;
+        appState = createDefaultState();
+        appState.darkMode = keepDark;
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        } catch (e) {
+          // تجاهل أخطاء التخزين
+        }
+        document.getElementById('reset-modal').classList.add('hidden');
+        document.getElementById('resume-banner').classList.add('hidden');
+        setCoachMessage('بداية جديدة بقوة وحماس! كل مرحلة تقربك من الاحتراف 🚀');
+        renderAll();
+        showToast('تمت إعادة ضبط التقدم إلى البداية.', 'info');
+      });
+
+      // إغلاق الإشعار المنبثق
+      document.getElementById('btn-close-toast').addEventListener('click', () => {
+        document.getElementById('toast-banner').classList.add('hidden');
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      bindAllEvents();
+      renderAll();
+      checkAndShowResumeBanner();
+    });
+  </script>
+</body>
+</html>
